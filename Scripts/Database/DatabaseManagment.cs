@@ -29,6 +29,20 @@ public class Word
     }
 }
 [System.Serializable]
+public class Answers
+{
+    public string intent;
+    public List<string> options = new List<string>();
+    public Answers(string _intent, string[] _options)
+    {
+        intent = _intent;
+        foreach (var option in _options)
+        {
+            options.Add(option);
+        }
+    }
+}
+[System.Serializable]
 public class Words
 {
     public List<ASCIIcode> codes;
@@ -37,9 +51,17 @@ public class DatabaseManagment : MonoBehaviour
 {
     public TextAsset textJSON;
     public Words dictionary;
+    public List<Answers> answers = new List<Answers>();
 
-    void Start(){
+    void Start()
+    {
         dictionary = JsonUtility.FromJson<Words>(textJSON.text);
+        string[] _intents = File.ReadAllText(Application.dataPath + "/Data/intents.txt").Split(",");
+        string[] options = new string[1];
+        foreach (var intent in _intents)
+        {
+            answers.Add(new Answers(intent, options));
+        }
     }
     public void CreateDictionary()
     {

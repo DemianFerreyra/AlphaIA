@@ -1,10 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class MessageRecongnition : MonoBehaviour
 {
     public DatabaseManagment databaseManager;
+    public List<string> intents = new List<string>();
+
+    void Start(){
+        string[] _intents = File.ReadAllText(Application.dataPath + "/Data/intents.txt").Split(",");
+        foreach (var intent in _intents)
+        {
+            intents.Add(intent);
+        }
+    }
     public void ReadMessage(string message)
     {
         //supongamos caso "hola como estas"
@@ -27,11 +37,18 @@ public class MessageRecongnition : MonoBehaviour
         {
             suma += System.Convert.ToInt32(character);
         }
-
         if (databaseManager.dictionary.codes[suma].words.Find(_word => _word.word == word) != null)
         {
-            Debug.Log("la palabra existe");
-            return "respuesta";
+            Word currentWord = databaseManager.dictionary.codes[suma].words.Find(_word => _word.word == word);
+            foreach (var intent in currentWord.wordTypes)
+            {
+                Answers currentAnswer = databaseManager.answers.Find(answer => answer.intent == intent);
+                if(intents.Contains(intent) && currentAnswer.options.Count > 1){
+                    Debug.Log(currentAnswer.options[Random.Range(1, currentAnswer.options.Count)]);
+                    return currentAnswer.options[Random.Range(1, currentAnswer.options.Count)];
+                }
+            }
+            return "unknownAnswer";
         }
         else
         {
