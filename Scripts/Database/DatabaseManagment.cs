@@ -62,12 +62,6 @@ public class DatabaseManagment : MonoBehaviour
     }
     public void CreateDictionary()
     {
-        dictionary = new Words();
-        //esta funcion creara la base de datos del diccionario de palabras agregandole su largo correspondiente
-        for (int i = 0; i < 10000; i++)
-        {
-            dictionary.codes.Add(new ASCIIcode());
-        }
         string emptyArray = JsonUtility.ToJson(dictionary);
         File.WriteAllText(Application.dataPath + "/Data/Dictionary.json", emptyArray);
     }

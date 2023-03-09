@@ -8,41 +8,91 @@ public class AnswersCases : MonoBehaviour
     public string latestWord;
     public string GetAnswer(Word currentWord)
     {
-        Debug.Log("me estoy ejecutando");
         if (currentWordOrder == 0)
         { //es decir si es la primer palabra
+            currentWordOrder += 1;
             if (currentWord.wordTypes[0] == "greeting")
             {
                 latestWord = "greeting";
                 return "hola buenas";
             }
-            currentWordOrder += 1;
+            if (currentWord.wordTypes[0] == "action")
+            {
+                //una frase no puede empezar con una accion, seria un noSense
+                if (currentWord.wordTypes.Contains("conjunction"))
+                {
+                    if (string.IsNullOrEmpty(latestWord) == true)
+                    {
+                        latestWord = "question";
+                        return "ignore";
+                    }
+                    latestWord = "conjunction";
+                    return "ignore";
+                }
+                else
+                {
+                    return "ignoreNoSense";
+                }
+            }
+            if (currentWord.wordTypes[0] == "question")
+            {
+
+                latestWord = "question";
+                return "ignore";
+            }
         }
 
         if (currentWordOrder == 1)
         { //es decir si es la segunda palabra
-            if (currentWord.wordTypes[0] == "greeting")
-            {
-                latestWord = "";
-                currentWordOrder = 0;
-                return "ignoreNoSense";
-            }
-            if (currentWord.wordTypes[0] == "unknown" && latestWord == "greeting")
-            {
-                latestWord = "";
-                Debug.Log(StringCompare("alphaIA", currentWord.word));
-                if (StringCompare("alphaIA", currentWord.word) < 56 || StringCompare("IA", currentWord.word) < 56)
-                {
-                    currentWordOrder = 0;
-                    return $"who is {currentWord.word}?";
-                }
-                else
-                {
-                    currentWordOrder = 0;
-                    return "usuario";
-                }
-            }
             currentWordOrder += 1;
+            if (latestWord == "greeting")
+            {
+                if (currentWord.wordTypes[0] == "greeting")
+                {
+                    latestWord = "";
+                    currentWordOrder = 0;
+                    return "ignoreNoSense";
+                }
+                if (currentWord.wordTypes[0] == "unknown")
+                {
+                    latestWord = "";
+                    currentWordOrder = 0;
+                    if (StringCompare("alphaIA", currentWord.word) < 56)
+                    {
+                        return $"who is {currentWord.word}?";
+                    }
+                    else
+                    {
+                        return "usuario";
+                    }
+                }
+            }
+            if (latestWord == "conjunction")
+            {
+                if (currentWord.wordTypes.Contains("question"))
+                {
+                    return $"me hicieron una pregunta sobre: {currentWord.word}";
+                }
+            }
+            if (latestWord == "question")
+            {
+                return "ignore";
+            }
+        }
+        if (currentWordOrder >= 2)
+        {
+            currentWordOrder += 1;
+            if (latestWord == "question")
+            {
+                if (currentWord.wordTypes.Contains("conjunction"))
+                {
+                    return "ignore";
+                }
+                if (currentWord.wordTypes[0] == "unknown" || currentWord.wordTypes.Contains("conjunction") == false &&  currentWord.wordTypes.Contains("adjective") == false)
+                {
+                    return $"me hicieron una pregunta sobre: {currentWord.word}";
+                }
+            }
         }
         return "ignore";
     }

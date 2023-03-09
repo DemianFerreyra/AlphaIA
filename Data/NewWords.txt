@@ -8,3 +8,17 @@ word:alphaia, hash:720
 word:ia, hash:202
 word:alpha, hash:518
 word:ia, hash:202
+word:ia, hash:202
+word:alpha, hash:518
+word:alfa, hash:404
+word:alpha, hash:518
+word:estas?, hash:607
+word:comida, hash:621
+word:favorita, hash:860
+word:comida, hash:621
+word:favorita, hash:860
+word:comida, hash:621
+word:te, hash:217
+word:llamas, hash:634
+word:animal, hash:626
+word:comida, hash:621

@@ -60,7 +60,6 @@ public class MessageRecongnition : MonoBehaviour
         {
             string[] unknown = new string[1];
             unknown[0] = "unknown";
-            databaseManager.dictionary.codes[suma].words.Add(new Word(word, unknown, "unknown"));
             databaseManager.AddNewWordsToDiscover(word, suma);
 
             string answer = answerManager.GetAnswer(new Word(word, unknown, "unknown"));
