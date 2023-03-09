@@ -1,0 +1,3 @@
+word:hola, hash:420
+word:como, hash:430
+word:estas, hash:544
