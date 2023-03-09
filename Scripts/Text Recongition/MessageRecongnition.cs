@@ -35,9 +35,9 @@ public class MessageRecongnition : MonoBehaviour
         }
         else
         {
-            string[] uses = new string[1];
-            uses[0] = "unknown";
-            databaseManager.dictionary.codes[suma].words.Add(new Word(word, "unknown", uses));
+            string[] unknown = new string[1];
+            unknown[0] = "unknown";
+            databaseManager.dictionary.codes[suma].words.Add(new Word(word, unknown, unknown));
             databaseManager.AddNewWordsToDiscover(word, suma);
             return "newWordUnlocked";
         }
