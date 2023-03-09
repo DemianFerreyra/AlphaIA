@@ -30,29 +30,34 @@ public class Words
 {
     public List<ASCIIcode> codes;
 }
-public class DatabaseCreation : MonoBehaviour
+public class DatabaseManagment : MonoBehaviour
 {
-    public TextAsset dictionary;
+    public TextAsset textJSON;
+    public Words dictionary;
+
+    void Start(){
+        dictionary = JsonUtility.FromJson<Words>(textJSON.text);
+    }
     public void CreateDictionary()
     {
-        Words newDictionary = new Words();
+        dictionary = new Words();
         //esta funcion creara la base de datos del diccionario de palabras agregandole su largo correspondiente
         for (int i = 0; i < 10000; i++)
         {
-            newDictionary.codes.Add(new ASCIIcode());
+            dictionary.codes.Add(new ASCIIcode());
         }
-        string emptyArray = JsonUtility.ToJson(newDictionary);
+        string emptyArray = JsonUtility.ToJson(dictionary);
         File.WriteAllText(Application.dataPath + "/Data/Dictionary.json", emptyArray);
     }
-    // public void UpdateDictionary(Words updatedDictionary)
-    // {
-    //     string updatedArray = JsonUtility.ToJson(updatedDictionary);
-    //     File.WriteAllText(Application.dataPath + "/Data/Dictionary.json", updatedArray);
-    // }
+    public void UpdateDictionary()
+    {
+        string updatedArray = JsonUtility.ToJson(dictionary);
+        File.WriteAllText(Application.dataPath + "/Data/Dictionary.json", updatedArray);
+    }
 
     public void AddNewWordsToDiscover(string word, int hashValue)
     {
-        string [] newWord = new string[1];
+        string[] newWord = new string[1];
         newWord[0] = $"word:{word}, hash:{hashValue}";
         File.AppendAllLines(Application.dataPath + "/Data/NewWords.txt", newWord);
     }

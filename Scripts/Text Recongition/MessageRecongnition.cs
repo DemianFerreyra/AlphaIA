@@ -4,16 +4,13 @@ using UnityEngine;
 
 public class MessageRecongnition : MonoBehaviour
 {
-    public Words words;
-    public TextAsset textJSON;
-    public DatabaseCreation databaseManager;
+    public DatabaseManagment databaseManager;
     public void ReadMessage(string message)
     {
         //supongamos caso "hola como estas"
         //primero se dividira el texto por palabras  -->  [hola, como, estas];
         string[] _words = message.Split(" ");
         //luego se invocara la funcion ReadWord() que leera cada palabra y buscara en un archivo json lo que significa
-        words = JsonUtility.FromJson<Words>(textJSON.text);
 
         List<string> responses = new List<string>();
         foreach (var word in _words)
@@ -31,7 +28,7 @@ public class MessageRecongnition : MonoBehaviour
             suma += System.Convert.ToInt32(character);
         }
 
-        if (words.codes[suma].words.Find(_word => _word.word == word) != null)
+        if (databaseManager.dictionary.codes[suma].words.Find(_word => _word.word == word) != null)
         {
             Debug.Log("la palabra existe");
             return "respuesta";
@@ -40,7 +37,7 @@ public class MessageRecongnition : MonoBehaviour
         {
             string[] uses = new string[1];
             uses[0] = "unknown";
-            words.codes[suma].words.Add(new Word(word, "unknown", uses));
+            databaseManager.dictionary.codes[suma].words.Add(new Word(word, "unknown", uses));
             databaseManager.AddNewWordsToDiscover(word, suma);
             return "newWordUnlocked";
         }
