@@ -6,9 +6,11 @@ using System.IO;
 public class MessageRecongnition : MonoBehaviour
 {
     public DatabaseManagment databaseManager;
+    public AnswersCases answerManager;
     public List<string> intents = new List<string>();
 
-    void Start(){
+    void Start()
+    {
         string[] _intents = File.ReadAllText(Application.dataPath + "/Data/intents.txt").Split(",");
         foreach (var intent in _intents)
         {
@@ -40,23 +42,30 @@ public class MessageRecongnition : MonoBehaviour
         if (databaseManager.dictionary.codes[suma].words.Find(_word => _word.word == word) != null)
         {
             Word currentWord = databaseManager.dictionary.codes[suma].words.Find(_word => _word.word == word);
-            foreach (var intent in currentWord.wordTypes)
-            {
-                Answers currentAnswer = databaseManager.answers.Find(answer => answer.intent == intent);
-                if(intents.Contains(intent) && currentAnswer.options.Count > 1){
-                    Debug.Log(currentAnswer.options[Random.Range(1, currentAnswer.options.Count)]);
-                    return currentAnswer.options[Random.Range(1, currentAnswer.options.Count)];
-                }
-            }
-            return "unknownAnswer";
+            string answer = answerManager.GetAnswer(currentWord);
+            Debug.Log(answer);
+            return answer;
+
+            // foreach (var intent in currentWord.wordTypes)
+            // {
+            //     Answers currentAnswer = databaseManager.answers.Find(answer => answer.intent == intent);
+            //     if(intents.Contains(intent) && currentAnswer.options.Count > 1){
+            //         Debug.Log(currentAnswer.options[Random.Range(1, currentAnswer.options.Count)]);
+            //         return currentAnswer.options[Random.Range(1, currentAnswer.options.Count)];
+            //     }
+            // }
+            // return "unknownAnswer";
         }
         else
         {
             string[] unknown = new string[1];
             unknown[0] = "unknown";
-            databaseManager.dictionary.codes[suma].words.Add(new Word(word, unknown, unknown));
+            databaseManager.dictionary.codes[suma].words.Add(new Word(word, unknown, "unknown"));
             databaseManager.AddNewWordsToDiscover(word, suma);
-            return "newWordUnlocked";
+
+            string answer = answerManager.GetAnswer(new Word(word, unknown, "unknown"));
+            Debug.Log(answer);
+            return answer;
         }
     }
 }

@@ -1,3 +1,10 @@
 word:hola, hash:420
 word:como, hash:430
 word:estas, hash:544
+word:ia, hash:202
+word:alphaia, hash:720
+word:ia, hash:202
+word:alphaia, hash:720
+word:ia, hash:202
+word:alpha, hash:518
+word:ia, hash:202

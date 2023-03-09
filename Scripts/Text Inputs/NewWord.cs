@@ -8,7 +8,7 @@ public class NewWord : MonoBehaviour
     public DatabaseManagment databaseManager;
     public TMP_InputField word;
     public TMP_InputField wordTypes;
-    public TMP_InputField wordUses;
+    public TMP_InputField wordRequire;
     public void DiscoverWord()
     {
         int suma = 0;
@@ -17,11 +17,10 @@ public class NewWord : MonoBehaviour
             suma += System.Convert.ToInt32(character);
         }
         string[] types = wordTypes.text.Split(",");
-        string[] uses = wordUses.text.Split(",");
-        databaseManager.dictionary.codes[suma].words.Add(new Word(word.text, types, uses));
+        databaseManager.dictionary.codes[suma].words.Add(new Word(word.text, types, wordRequire.text));
 
         word.text = "";
         wordTypes.text = "";
-        wordUses.text = "";
+        wordRequire.text = "";
     }
 }

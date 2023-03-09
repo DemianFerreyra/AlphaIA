@@ -1,1 +1,1 @@
-greeting,question,action,verb,subjective,adjective,orational complement
+greeting,question,action,adjective,past verb,conjunction,second person,affirmation,place

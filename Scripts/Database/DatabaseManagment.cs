@@ -13,19 +13,16 @@ public class ASCIIcode
 public class Word
 {
     public string word;
-    public List<string> wordTypes = new List<string>(); //verb, sustantive, adjective, direct modifier, core, verbal core, orational complement
-    public List<string> wordUses = new List<string>(); //arreglo de usos de esa palabra, como por ejemplo, saludo, insulto, nombre, pregunta, etc (es un arreglo debido a que una palabra puede tener varios significados)
-    public Word(string _word, string[] _wordTypes, string[] _wordUses)
+    public List<string> wordTypes = new List<string>(); //greeting,question,action,adjective,past verb,conjunction,second person,affirmation,place
+    public string wordRequire; //si requiere algo especifico (como por ejemplo en requiere un lugar como siguiente palabra)
+    public Word(string _word, string[] _wordTypes, string _wordRequire)
     {
         word = _word;
         foreach (var wordType in _wordTypes)
         {
             wordTypes.Add(wordType);
         }
-        foreach (var wordUse in _wordUses)
-        {
-            wordUses.Add(wordUse);
-        }
+        wordRequire = _wordRequire;
     }
 }
 [System.Serializable]
