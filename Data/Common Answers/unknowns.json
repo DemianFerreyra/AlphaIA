@@ -1,1 +1,1 @@
-{"intent":"unknown","answers":[{"specificIntent":"nombre desconocido","keys":["unknownName"],"options":["no se a quien te refieres con {unknown}","{unknown}? no se a quien estas saludando","{unknown}? no lo conozco... es un streamer?","ignore"]}]}
+{"intent":"unknown","answers":[{"specificIntent":"nombredesconocido","keys":["unknownName"],"options":["no se a quien te refieres con #","#? no se a quien estas saludando","#? no lo conozco... es un streamer?","ignore"]}]}

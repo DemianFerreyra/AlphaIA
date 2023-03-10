@@ -67,14 +67,11 @@ public class AnswersCases : MonoBehaviour
                     currentWordOrder = 0;
                     if (StringCompare("alphaIA", currentWord.word) < 56)
                     {
-                        return $"likes:{currentWord.answerType}:{currentWord.word}";
-                        // string answer = answerManager.ReturnCorrectAnswer("unknown", "unknownName");
-                        // string newAnswer = answer.Replace("{unknown}", currentWord.word);
-                        // return $"...{newAnswer}";
+                        return $"unknown:nombredesconocido:{currentWord.word}";
                     }
                     else
                     {
-                        return "usuario";
+                        return "ignore";
                     }
                 }
                 if (currentWord.wordTypes.Contains("question"))

@@ -11,7 +11,7 @@ public class GetCorrectAnswers : MonoBehaviour
         intent = JsonUtility.FromJson<Answers>(File.ReadAllText(Application.dataPath + $"/Data/Common Answers/{wordType}s.json"));
         foreach (var answer in intent.answers)
         {
-            if (answer.keys.Contains(word))
+            if (answer.specificIntent == word)
             {
                 return answer.options[Random.Range(0, answer.options.Count)];
             }

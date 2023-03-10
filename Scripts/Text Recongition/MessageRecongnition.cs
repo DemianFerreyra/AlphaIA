@@ -50,9 +50,14 @@ public class MessageRecongnition : MonoBehaviour
                     }
 
                 }
+                if(responseData[0] == "unknown"){
+                    string msg = "..." + getCorrectAnswers.ReturnCorrectAnswer(responseData[0], responseData[1]);
+                    string newmsg = msg.Replace("#", responseData[2]);
+                    Debug.Log(newmsg);
+                }
                 else
                 {
-                    Debug.Log(getCorrectAnswers.ReturnCorrectAnswer(responseData[0], responseData[2]));
+                    Debug.Log(getCorrectAnswers.ReturnCorrectAnswer(responseData[0], responseData[1]));
                 }
             }
         }
