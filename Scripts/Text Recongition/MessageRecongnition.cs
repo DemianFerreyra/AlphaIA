@@ -30,6 +30,7 @@ public class MessageRecongnition : MonoBehaviour
             responses.Add(ReadWord(word));
         }
         answerManager.latestWord = "";
+        answerManager.latestWordType = "";
         answerManager.currentWordOrder = 0;
     }
     private string ReadWord(string word)
@@ -47,16 +48,6 @@ public class MessageRecongnition : MonoBehaviour
             string answer = answerManager.GetAnswer(currentWord);
             Debug.Log(answer);
             return answer;
-
-            // foreach (var intent in currentWord.wordTypes)
-            // {
-            //     Answers currentAnswer = databaseManager.answers.Find(answer => answer.intent == intent);
-            //     if(intents.Contains(intent) && currentAnswer.options.Count > 1){
-            //         Debug.Log(currentAnswer.options[Random.Range(1, currentAnswer.options.Count)]);
-            //         return currentAnswer.options[Random.Range(1, currentAnswer.options.Count)];
-            //     }
-            // }
-            // return "unknownAnswer";
         }
         else
         {

@@ -8,14 +8,6 @@ public class GetCorrectAnswers : MonoBehaviour
     public Answers intent;
     public string ReturnCorrectAnswer(string wordType, string word)
     {
-        string[] questionAboutLikes = { "gusta", "gusto" };
-        foreach (var question in questionAboutLikes)
-        {
-            if (question == word)
-            {
-                return "youLikeQuestion";
-            }
-        }
         intent = JsonUtility.FromJson<Answers>(File.ReadAllText(Application.dataPath + $"/Data/Common Answers/{wordType}s.json"));
         foreach (var answer in intent.answers)
         {
@@ -25,5 +17,17 @@ public class GetCorrectAnswers : MonoBehaviour
             }
         }
         return "ignore";
+    }
+    public string ReturnAnswerToQuestion(string question, string questionType){
+       if(questionType == "personalState"){
+         return "estoy bien";
+       }
+       if(questionType == "likes"){
+         return $"si, me gusta {question}";
+       }
+       if(questionType == "tomorrow" || questionType == "yesterday" || questionType == "hoy"){
+         return $"{questionType} {question}";
+       }
+       return "perdon... no entendi que quisiste preguntarme";
     }
 }
