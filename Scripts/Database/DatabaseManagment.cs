@@ -54,10 +54,9 @@ public class DatabaseManagment : MonoBehaviour
     {
         dictionary = JsonUtility.FromJson<Words>(textJSON.text);
         string[] _intents = File.ReadAllText(Application.dataPath + "/Data/intents.txt").Split(",");
-        string[] options = new string[1];
         foreach (var intent in _intents)
         {
-            answers.Add(new Answers(intent, options));
+            answers.Add(JsonUtility.FromJson<Answers>(File.ReadAllText(Application.dataPath + $"/Data/Common Answers/{intent}s.json")));
         }
     }
     public void CreateDictionary()
@@ -69,6 +68,12 @@ public class DatabaseManagment : MonoBehaviour
     {
         string updatedArray = JsonUtility.ToJson(dictionary);
         File.WriteAllText(Application.dataPath + "/Data/Dictionary.json", updatedArray);
+        UpdateAnswersDictionary("greeting");
+    }
+     private void UpdateAnswersDictionary(string intent)
+    {
+        string updatedArray = JsonUtility.ToJson(answers.Find(answer => answer.intent == intent));
+        File.WriteAllText(Application.dataPath + $"/Data/Common Answers/{intent}s.json", updatedArray);
     }
 
     public void AddNewWordsToDiscover(string word, int hashValue)

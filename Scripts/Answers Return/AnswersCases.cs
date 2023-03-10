@@ -7,6 +7,7 @@ public class AnswersCases : MonoBehaviour
 {
     public int currentWordOrder;
     public string latestWord;
+    public GetCorrectAnswers answerManager;
     public string GetAnswer(Word currentWord)
     {
         if (currentWordOrder == 0)
@@ -19,7 +20,7 @@ public class AnswersCases : MonoBehaviour
             if (currentWord.wordTypes.Contains("greeting"))
             {
                 latestWord = "greeting";
-                return "hola buenas";
+                return answerManager.ReturnCorrectAnswer("greeting");
             }
             if (currentWord.wordTypes.Contains("action"))
             {
