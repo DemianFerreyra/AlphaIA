@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Text.RegularExpressions;
 
 public class AnswersCases : MonoBehaviour
 {
@@ -11,21 +12,20 @@ public class AnswersCases : MonoBehaviour
         if (currentWordOrder == 0)
         { //es decir si es la primer palabra
             currentWordOrder += 1;
-            if (currentWord.wordTypes[0] == "greeting")
+            if (currentWord.wordTypes.Contains("unknown"))
+            {
+                return "ignore";
+            }
+            if (currentWord.wordTypes.Contains("greeting"))
             {
                 latestWord = "greeting";
                 return "hola buenas";
             }
-            if (currentWord.wordTypes[0] == "action")
+            if (currentWord.wordTypes.Contains("action"))
             {
                 //una frase no puede empezar con una accion, seria un noSense
                 if (currentWord.wordTypes.Contains("conjunction"))
                 {
-                    if (string.IsNullOrEmpty(latestWord) == true)
-                    {
-                        latestWord = "question";
-                        return "ignore";
-                    }
                     latestWord = "conjunction";
                     return "ignore";
                 }
@@ -34,11 +34,15 @@ public class AnswersCases : MonoBehaviour
                     return "ignoreNoSense";
                 }
             }
-            if (currentWord.wordTypes[0] == "question")
+            if (currentWord.wordTypes.Contains("question"))
             {
-
                 latestWord = "question";
                 return "ignore";
+            }
+            if (currentWord.wordTypes.Contains("time"))
+            {
+                latestWord = "timeQuestion";
+                return currentWord.word;
             }
         }
 
@@ -66,6 +70,12 @@ public class AnswersCases : MonoBehaviour
                         return "usuario";
                     }
                 }
+                if (currentWord.wordTypes.Contains("conjunction"))
+                {
+                    latestWord = "conjunction";
+                    currentWordOrder = 1;
+                    return "ignore";
+                }
             }
             if (latestWord == "conjunction")
             {
@@ -78,19 +88,42 @@ public class AnswersCases : MonoBehaviour
             {
                 return "ignore";
             }
+            if (latestWord == "timeQuestion")
+            {
+                if (currentWord.wordTypes.Contains("question"))
+                {
+                    if (currentWord.wordTypes.Contains("conjunction"))
+                    {
+                        latestWord = "question";
+                        return "ignore";
+                    }
+                    return $" si habra";
+                }
+            }
         }
         if (currentWordOrder >= 2)
         {
             currentWordOrder += 1;
-            if (latestWord == "question")
+            if (latestWord == "question" || latestWord == "conjunction")
             {
                 if (currentWord.wordTypes.Contains("conjunction"))
                 {
                     return "ignore";
                 }
-                if (currentWord.wordTypes[0] == "unknown" || currentWord.wordTypes.Contains("conjunction") == false &&  currentWord.wordTypes.Contains("adjective") == false)
+                if (currentWord.wordTypes[0] == "unknown" || currentWord.wordTypes.Contains("conjunction") == false && currentWord.wordTypes.Contains("adjective") == false)
                 {
                     return $"me hicieron una pregunta sobre: {currentWord.word}";
+                }
+            }
+            if (latestWord == "timeQuestion")
+            {
+                if (currentWord.wordTypes.Contains("conjunction"))
+                {
+                    return "ignore";
+                }
+                if (currentWord.wordTypes[0] == "unknown" || currentWord.wordTypes.Contains("conjunction") == false && currentWord.wordTypes.Contains("adjective") == false)
+                {
+                    return $" {currentWord.word}";
                 }
             }
         }

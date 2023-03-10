@@ -29,6 +29,8 @@ public class MessageRecongnition : MonoBehaviour
         {
             responses.Add(ReadWord(word));
         }
+        answerManager.latestWord = "";
+        answerManager.currentWordOrder = 0;
     }
     private string ReadWord(string word)
     {
