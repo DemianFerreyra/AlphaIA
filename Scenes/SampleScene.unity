@@ -272,6 +272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   databaseManager: {fileID: 1820949886}
   intent: {fileID: 165783604}
+  specificIntent: {fileID: 0}
   answers: {fileID: 179102328}
 --- !u!1 &25428801
 GameObject:
@@ -3053,7 +3054,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: word require...
+  m_text: answer type...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4822,7 +4823,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentWordOrder: 0
   latestWord: 
-  answerManager: {fileID: 1820949888}
+  latestWordType: 
 --- !u!114 &1820949888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4837,7 +4838,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   intent:
     intent: 
-    options: []
+    answers: []
 --- !u!1 &1851529429
 GameObject:
   m_ObjectHideFlags: 0

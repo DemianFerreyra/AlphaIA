@@ -14,15 +14,15 @@ public class Word
 {
     public string word;
     public List<string> wordTypes = new List<string>(); //greeting,question,action,adjective,past verb,conjunction,second person,affirmation,place
-    public string wordRequire; //si requiere algo especifico (como por ejemplo en requiere un lugar como siguiente palabra)
-    public Word(string _word, string[] _wordTypes, string _wordRequire)
+    public string answerType; //si requiere algo especifico (como por ejemplo en requiere un lugar como siguiente palabra)
+    public Word(string _word, string[] _wordTypes, string _answerType)
     {
         word = _word;
         foreach (var wordType in _wordTypes)
         {
             wordTypes.Add(wordType);
         }
-        wordRequire = _wordRequire;
+        answerType = _answerType;
     }
 }
 [System.Serializable]

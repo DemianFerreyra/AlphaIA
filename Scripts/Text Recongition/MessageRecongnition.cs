@@ -7,6 +7,8 @@ public class MessageRecongnition : MonoBehaviour
 {
     public DatabaseManagment databaseManager;
     public AnswersCases answerManager;
+    public GetCorrectAnswers getCorrectAnswers;
+    public bool stillAnswering;
     public List<string> intents = new List<string>();
 
     void Start()
@@ -28,6 +30,35 @@ public class MessageRecongnition : MonoBehaviour
         foreach (var word in _words)
         {
             responses.Add(ReadWord(word));
+        }
+        string fullWord = "";
+        foreach (var response in responses)
+        {
+            if (response == "ignore")
+            {
+                Debug.Log("ignore");
+            }
+            else
+            {
+                string[] responseData = response.Split(":");
+                if (responseData[0] == "question" || responseData[0] == "likes")
+                {
+                    Debug.Log(getCorrectAnswers.ReturnAnswerToQuestion(responseData[2], responseData[1]));
+                    if (responseData[1] == "unknown")
+                    {
+                        fullWord += $"{responseData[2]}";
+                    }
+
+                }
+                else
+                {
+                    Debug.Log(getCorrectAnswers.ReturnCorrectAnswer(responseData[0], responseData[2]));
+                }
+            }
+        }
+        if (fullWord.Length > 1)
+        {
+            StartCoroutine(getCorrectAnswers.SearchUnknown(fullWord));
         }
         answerManager.latestWord = "";
         answerManager.latestWordType = "";

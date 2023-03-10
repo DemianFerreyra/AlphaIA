@@ -21,7 +21,7 @@ public class AnswersCases : MonoBehaviour
             if (currentWord.wordTypes.Contains("greeting"))
             {
                 latestWord = "greeting";
-                return $"greeting:{currentWord.word}";
+                return $"greeting:{currentWord.answerType}:{currentWord.word}";
             }
             if (currentWord.wordTypes.Contains("action"))
             {
@@ -59,7 +59,7 @@ public class AnswersCases : MonoBehaviour
                 {
                     latestWord = "";
                     currentWordOrder = 0;
-                    return "ignoreNoSense";
+                    return "ignore";
                 }
                 if (currentWord.wordTypes[0] == "unknown")
                 {
@@ -67,7 +67,7 @@ public class AnswersCases : MonoBehaviour
                     currentWordOrder = 0;
                     if (StringCompare("alphaIA", currentWord.word) < 56)
                     {
-                        return $"likes:{currentWord.word}";
+                        return $"likes:{currentWord.answerType}:{currentWord.word}";
                         // string answer = answerManager.ReturnCorrectAnswer("unknown", "unknownName");
                         // string newAnswer = answer.Replace("{unknown}", currentWord.word);
                         // return $"...{newAnswer}";
@@ -103,7 +103,7 @@ public class AnswersCases : MonoBehaviour
                         return "ignore";
                         }
                     }
-                    return $"question:{currentWord.word}";
+                    return $"question:{currentWord.answerType}:{currentWord.word}";
                 }
             }
             if (latestWord == "conjunction")
@@ -111,7 +111,7 @@ public class AnswersCases : MonoBehaviour
                 if (currentWord.wordTypes.Contains("question"))
                 {
                     latestWord = "question";
-                    return $"question:{currentWord.word}";
+                    return $"question:{currentWord.answerType}:{currentWord.word}";
                 }
             }
             if (latestWord == "question")
@@ -144,7 +144,7 @@ public class AnswersCases : MonoBehaviour
                 }
                 if (currentWord.wordTypes[0] == "unknown" || currentWord.wordTypes.Contains("conjunction") == false && currentWord.wordTypes.Contains("adjective") == false)
                 {
-                    return $"question:{currentWord.word}";
+                    return $"question:{currentWord.answerType}:{currentWord.word}";
                 }
             }
             if (latestWord == "timeQuestion")
@@ -157,14 +157,14 @@ public class AnswersCases : MonoBehaviour
                 {
                     if (latestWordType.Length > 1)
                     {
-                        return $"likes:{currentWord.word}";
+                        return $"likes:{currentWord.answerType}:{currentWord.word}";
                     }
                     return "ignore";
                 }
             }
             if (latestWord == "likesQuestion")
             {
-                return $"likes:{currentWord.word}";
+                return $"likes:{currentWord.answerType}:{currentWord.word}";
             }
         }
         return "ignore";
