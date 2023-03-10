@@ -1,1 +1,1 @@
-{"intent":"greeting","options":["","hola","buenas","holi"]}
+{"intent":"greeting","answers":[{"specificIntent":"saludos","keys":["hola","holi","ola","buenas"],"options":["hola","holiii"]},{"specificIntent":"despedidas","keys":["adios","hasta pronto","hasta luego"],"options":["adios","goodbye","adiosito","nos vemos, cuidate"]}]}

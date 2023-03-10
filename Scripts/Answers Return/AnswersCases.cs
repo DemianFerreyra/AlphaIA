@@ -20,7 +20,7 @@ public class AnswersCases : MonoBehaviour
             if (currentWord.wordTypes.Contains("greeting"))
             {
                 latestWord = "greeting";
-                return answerManager.ReturnCorrectAnswer("greeting");
+                return answerManager.ReturnCorrectAnswer("greeting", currentWord.word);
             }
             if (currentWord.wordTypes.Contains("action"))
             {
@@ -64,7 +64,9 @@ public class AnswersCases : MonoBehaviour
                     currentWordOrder = 0;
                     if (StringCompare("alphaIA", currentWord.word) < 56)
                     {
-                        return $"who is {currentWord.word}?";
+                        string answer = answerManager.ReturnCorrectAnswer("unknown", "unknownName");
+                        string newAnswer = answer.Replace("{unknown}", currentWord.word);
+                        return $"...{newAnswer}";
                     }
                     else
                     {
@@ -82,7 +84,7 @@ public class AnswersCases : MonoBehaviour
             {
                 if (currentWord.wordTypes.Contains("question"))
                 {
-                    return $"me hicieron una pregunta sobre: {currentWord.word}";
+                    return answerManager.ReturnCorrectAnswer("question", currentWord.word);
                 }
             }
             if (latestWord == "question")

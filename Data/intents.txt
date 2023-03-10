@@ -1,1 +1,1 @@
-greeting,question,conjunction,place,time
+greeting,question,place,unknown

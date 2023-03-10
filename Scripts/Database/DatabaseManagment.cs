@@ -29,10 +29,21 @@ public class Word
 public class Answers
 {
     public string intent;
+    public List<Answer> answers = new List<Answer>();
+}
+[System.Serializable]
+public class Answer
+{
+    public string specificIntent;
+    public List<string> keys = new List<string>();
     public List<string> options = new List<string>();
-    public Answers(string _intent, string[] _options)
+    public Answer(string[] _keys, string[] _options, string _specificIntent)
     {
-        intent = _intent;
+        specificIntent = _specificIntent;
+        foreach (var key in _keys)
+        {
+            keys.Add(key);
+        }
         foreach (var option in _options)
         {
             options.Add(option);
@@ -68,7 +79,11 @@ public class DatabaseManagment : MonoBehaviour
     {
         string updatedArray = JsonUtility.ToJson(dictionary);
         File.WriteAllText(Application.dataPath + "/Data/Dictionary.json", updatedArray);
-        UpdateAnswersDictionary("greeting");
+        string[] _intents = File.ReadAllText(Application.dataPath + "/Data/intents.txt").Split(",");
+        foreach (var intent in _intents)
+        {
+            UpdateAnswersDictionary(intent);
+        }    
     }
      private void UpdateAnswersDictionary(string intent)
     {

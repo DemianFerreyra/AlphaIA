@@ -1,3 +1,25 @@
 --WORD TYPES--
 greeting,question,action,adjective,past verb,conjunction,second person,affirmation,place,time
 
+word:ia, hash:202
+word:ia, hash:202
+word:ia, hash:202
+word:ia, hash:202
+word:ia, hash:202
+word:ia, hash:202
+word:ia, hash:202
+word:ia, hash:202
+word:ia, hash:202
+word:ia, hash:202
+word:ia, hash:202
+word:ia, hash:202
+word:adios, hash:528
+word:adios, hash:528
+word:adios, hash:528
+word:adios, hash:528
+word:ia, hash:202
+word:ia, hash:202
+word:ia, hash:202
+word:ia, hash:202
+word:ia, hash:202
+word:ia, hash:202

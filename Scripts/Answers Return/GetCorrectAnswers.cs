@@ -6,19 +6,14 @@ using System.IO;
 public class GetCorrectAnswers : MonoBehaviour
 {
     public Answers intent;
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            ReturnCorrectAnswer("greeting");
-        }
-    }
-    public string ReturnCorrectAnswer(string wordType)
+    public string ReturnCorrectAnswer(string wordType, string word)
     {
         intent = JsonUtility.FromJson<Answers>(File.ReadAllText(Application.dataPath + $"/Data/Common Answers/{wordType}s.json"));
-        if (intent.options.Count > 1)
+        foreach (var answer in intent.answers)
         {
-            return intent.options[Random.Range(1, intent.options.Count)];
+            if(answer.keys.Contains(word)){
+              return answer.options[Random.Range(0, answer.options.Count)];
+            }
         }
         return "ignore";
     }

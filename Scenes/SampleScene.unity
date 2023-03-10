@@ -2924,8 +2924,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DatabaseCreation, Assembly-CSharp
+      - m_Target: {fileID: 1820949886}
+        m_TargetAssemblyTypeName: DatabaseManagment, Assembly-CSharp
         m_MethodName: CreateDictionary
         m_Mode: 1
         m_Arguments:
@@ -3280,7 +3280,7 @@ MonoBehaviour:
   databaseManager: {fileID: 1820949886}
   word: {fileID: 1438339469}
   wordTypes: {fileID: 2077529541}
-  wordRequire: {fileID: 0}
+  wordRequire: {fileID: 1802116255}
 --- !u!1 &1380793794
 GameObject:
   m_ObjectHideFlags: 0
@@ -4753,6 +4753,8 @@ GameObject:
   - component: {fileID: 1820949884}
   - component: {fileID: 1820949886}
   - component: {fileID: 1820949885}
+  - component: {fileID: 1820949887}
+  - component: {fileID: 1820949888}
   m_Layer: 0
   m_Name: test
   m_TagString: Untagged
@@ -4788,7 +4790,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   databaseManager: {fileID: 1820949886}
-  answerManager: {fileID: 0}
+  answerManager: {fileID: 1820949887}
   intents: []
 --- !u!114 &1820949886
 MonoBehaviour:
@@ -4806,6 +4808,36 @@ MonoBehaviour:
   dictionary:
     codes: []
   answers: []
+--- !u!114 &1820949887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1820949882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5b89e04ff608634cb3c95470063f59b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentWordOrder: 0
+  latestWord: 
+  answerManager: {fileID: 1820949888}
+--- !u!114 &1820949888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1820949882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6becd0a3ce647b4429efc2d8ef2e6a1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  intent:
+    intent: 
+    options: []
 --- !u!1 &1851529429
 GameObject:
   m_ObjectHideFlags: 0
