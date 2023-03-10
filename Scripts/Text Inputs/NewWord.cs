@@ -14,11 +14,10 @@ public class NewWord : MonoBehaviour
         int suma = 0;
         foreach (var character in word.text)
         {
-            suma += System.Convert.ToInt32(character);
+            suma += System.Convert.ToInt32(character) % 4000;
         }
         string[] types = wordTypes.text.Split(",");
         databaseManager.dictionary.codes[suma].words.Add(new Word(word.text, types, wordRequire.text));
-
         word.text = "";
         wordTypes.text = "";
         wordRequire.text = "";

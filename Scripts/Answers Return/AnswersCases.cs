@@ -15,6 +15,7 @@ public class AnswersCases : MonoBehaviour
             currentWordOrder += 1;
             if (currentWord.wordTypes.Contains("unknown"))
             {
+                latestWord = "unknown";
                 return "ignore";
             }
             if (currentWord.wordTypes.Contains("greeting"))
@@ -80,10 +81,23 @@ public class AnswersCases : MonoBehaviour
                     return "ignore";
                 }
             }
+            if (latestWord == "unknown")
+            {
+                if (currentWord.wordTypes.Contains("question"))
+                {
+                    latestWord = "question";
+                    if(answerManager.ReturnCorrectAnswer("question", currentWord.word) == "youLikeQuestion"){
+                        latestWord = "likesQuestion";
+                        return "likes";
+                    }
+                    return answerManager.ReturnCorrectAnswer("question", currentWord.word);
+                }
+            }
             if (latestWord == "conjunction")
             {
                 if (currentWord.wordTypes.Contains("question"))
                 {
+                    latestWord = "question";
                     return answerManager.ReturnCorrectAnswer("question", currentWord.word);
                 }
             }
@@ -128,6 +142,10 @@ public class AnswersCases : MonoBehaviour
                 {
                     return $" {currentWord.word}";
                 }
+            }
+            if (latestWord == "likesQuestion")
+            {
+                return currentWord.word;
             }
         }
         return "ignore";
