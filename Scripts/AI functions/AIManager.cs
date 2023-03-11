@@ -4,18 +4,15 @@ using UnityEngine;
 
 public class AIManager : MonoBehaviour
 {
-   
+    public bool isReadyToAnswer = true;
 
-
-    // Start is called before the first frame update
-    void Start()
+    void Update()
     {
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
+    public void ReadMessageLoud(string message){
+      string newmsg = message.Replace("{usuario}", "usuario");
+      Debug.Log("mensaje completo = " + newmsg);
     }
 }

@@ -5,6 +5,7 @@ using System.IO;
 
 public class MessageRecongnition : MonoBehaviour
 {
+    public AIManager Alpha;
     public DatabaseManagment databaseManager;
     public AnswersCases answerManager;
     public GetCorrectAnswers getCorrectAnswers;
@@ -24,7 +25,16 @@ public class MessageRecongnition : MonoBehaviour
     {
         if (leftToAnswer == 0)
         {
-          responsesToGive.Clear();
+            if (responsesToGive.Count >= 1 && Alpha.isReadyToAnswer == true)
+            {
+                string message = "";
+                foreach (var res in responsesToGive)
+                {
+                    message += " " + res;
+                }
+                Alpha.ReadMessageLoud(message);
+                responsesToGive.Clear();
+            }
         }
     }
     public void ReadMessage(string message)

@@ -58,7 +58,7 @@ public class GetCorrectAnswers : MonoBehaviour
         {
             string msg = ReturnCorrectAnswer("unknown", "gustosdesconocidos");
             string newmsg = msg.Replace("#", finalResponse[1].ToLower());
-            Debug.Log(newmsg);
+            finalResponse[1] = newmsg;
         }
         for (int i = 0; i < msgReader.databaseManager.dictionary.codes[suma % 4000].likes.Count; i++)
         {
@@ -67,21 +67,26 @@ public class GetCorrectAnswers : MonoBehaviour
             {
                 if (like.likesOrNot == true)
                 {
-                    Debug.Log("a alpha si le gusta " + unknown);
+                    string msg = ReturnCorrectAnswer("question", "gustosconocidospositivo");
+                    string newmsg = msg.Replace("#", finalResponse[1].ToLower());
+                    finalResponse[1] = newmsg;
                 }
                 else
                 {
-                    Debug.Log("a alpha no le gusta " + unknown);
+                    string msg = ReturnCorrectAnswer("question", "gustosdesconocidosnegativo");
+                    string newmsg = msg.Replace("#", finalResponse[1].ToLower());
+                    finalResponse[1] = newmsg;
                 }
             }
             else
             {
                 string msg = ReturnCorrectAnswer("unknown", "gustosdesconocidos");
                 string newmsg = msg.Replace("#", finalResponse[1].ToLower());
-                Debug.Log(newmsg);
+                finalResponse[1] = newmsg;
             }
         }
         msgReader.leftToAnswer -= 1;
+        Debug.Log("final answer = " + finalResponse[1]);
         for (int i = 0; i < msgReader.responsesToGive.Count; i++)
         {
             if (msgReader.responsesToGive[i] == "await")
@@ -90,4 +95,6 @@ public class GetCorrectAnswers : MonoBehaviour
             }
         }
     }
+
+    //uri para conseguir data mas profunda $"https://en.wikipedia.org/w/api.php?action=query&prop=extracts&format=json&exintro=&titles={unknown}"
 }

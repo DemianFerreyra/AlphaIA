@@ -41,6 +41,11 @@ public class AnswersCases : MonoBehaviour
                 latestWord = "question";
                 return "ignore";
             }
+            if (currentWord.wordTypes.Contains("conjunction"))
+            {
+                latestWord = "conjunction";
+                return "ignore";
+            }
             if (currentWord.wordTypes.Contains("time"))
             {
                 latestWordType = "tomorrow";
@@ -71,7 +76,7 @@ public class AnswersCases : MonoBehaviour
                     }
                     else
                     {
-                        return "ignore";
+                        return $"greeting:saludoshaciami:{currentWord.word}";
                     }
                 }
                 if (currentWord.wordTypes.Contains("question"))
