@@ -163,7 +163,6 @@ public class AnswersCases : MonoBehaviour
             {
                 if (currentWord.wordTypes.Contains("question"))
                 {
-                    Debug.Log($"se me pregunto sobre a: {currentWord.word}");
                     return "ignore";
                 }
                 if (currentWord.wordTypes.Contains("unknown"))
@@ -234,7 +233,7 @@ public class AnswersCases : MonoBehaviour
                         extraData = "likesQuestion";
                         return "ignore";
                     }
-                    return "ignore";
+                    return $"question:{currentWord.answerType}:{currentWord.word}";
                 }
                 if (currentWord.wordTypes.Contains("reference"))
                 {

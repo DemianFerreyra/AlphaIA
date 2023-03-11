@@ -1783,7 +1783,8 @@
                 {
                     "word": "como",
                     "wordTypes": [
-                        "question.action",
+                        "question",
+                        "action",
                         "conjunction"
                     ],
                     "answerType": ""

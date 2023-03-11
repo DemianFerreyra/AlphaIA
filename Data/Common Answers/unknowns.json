@@ -1,1 +1,44 @@
-{"intent":"unknown","answers":[{"specificIntent":"nombresdesconocidos","keys":["unknownName"],"options":["no se a quien te refieres con #","#? no se a quien estas saludando","#? no lo conozco... es un streamer?","ignore"]},{"specificIntent":"gustosdesconocidos","keys":["unknownTaste"],"options":["no tengo una opinion sobre #. No se que es","perdon... no tengo una opinion formada sobre #","no se que es #","nunca escuche hablar de #","jamas investigue acerca de #","no lo conozco"]},{"specificIntent":"objetivodesconocido","keys":["unknownName"],"options":["no entendi tu pregunta :(","lo siento, podrias preguntar otra vez?","me podrias repetir la pregunta?","me podrias repetir la pregunta? no la entendi...","supongo que no estoy entrenada para responder a eso"]}]}
+{
+    "intent": "unknown",
+    "answers": [
+        {
+            "specificIntent": "nombresdesconocidos",
+            "keys": [
+                "unknownName"
+            ],
+            "options": [
+                "no se a quien te refieres con #",
+                "#? no se a quien estas saludando",
+                "#? no lo conozco... es un streamer?",
+                "ignore"
+            ]
+        },
+        {
+            "specificIntent": "gustosdesconocidos",
+            "keys": [
+                "unknownTaste"
+            ],
+            "options": [
+                "no tengo una opinion sobre #. No se que es",
+                "perdon... no tengo una opinion formada sobre #",
+                "no se que es #",
+                "nunca escuche hablar de #",
+                "jamas investigue acerca de #",
+                "no lo conozco"
+            ]
+        },
+        {
+            "specificIntent": "objetivodesconocido",
+            "keys": [
+                "unknownName"
+            ],
+            "options": [
+                "no entendi tu pregunta :(",
+                "lo siento, podrias preguntar otra vez?",
+                "me podrias repetir la pregunta?",
+                "me podrias repetir la pregunta? no la entendi...",
+                "supongo que no estoy entrenada para responder a eso"
+            ]
+        }
+    ]
+}

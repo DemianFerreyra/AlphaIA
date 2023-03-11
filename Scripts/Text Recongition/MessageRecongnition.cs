@@ -55,7 +55,7 @@ public class MessageRecongnition : MonoBehaviour
         {
             if (response == "ignore")
             {
-                Debug.Log("ignore");
+                //Debug.Log("ignore");
             }
             else
             {
@@ -73,6 +73,7 @@ public class MessageRecongnition : MonoBehaviour
                 }
                 else if (responseData[0] == "question" || responseData[0] == "like")
                 {
+                    Debug.Log(responseData[1]);
                     int suma = 0;
                     foreach (var character in responseData[2])
                     {
@@ -104,10 +105,13 @@ public class MessageRecongnition : MonoBehaviour
                         isForCreator = true;
                         fullWord += $"{responseData[2]}";
                     }
-                    // else if (responseData[1] == "conjunction")
-                    // {
-                    //     responsesToGive.Add(getCorrectAnswers.ReturnAnswerToQuestion(responseData[2], responseData[1]));
-                    // }
+                    else if(responseData[1] == "personalState"){
+                        responsesToGive.Add(getCorrectAnswers.ReturnAnswerToQuestion(responseData[2], responseData[1], "alpha"));
+                    }
+                    else
+                    {
+                        responsesToGive.Add(getCorrectAnswers.ReturnCorrectAnswer(responseData[0], responseData[1]));
+                    }
                 }
                 else if (responseData[0] == "unknown")
                 {

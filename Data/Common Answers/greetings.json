@@ -1,1 +1,44 @@
-{"intent":"greeting","answers":[{"specificIntent":"saludos","keys":["hola","holi","ola","buenas"],"options":["hola","holiii"]},{"specificIntent":"despedidas","keys":["adios","hasta pronto","hasta luego"],"options":["adios","goodbye","adiosito","nos vemos, cuidate"]},{"specificIntent":"saludoshaciami","keys":[],"options":["precioso {usuario}","querido {usuario}","{usuario}. Como estas?"]}]}
+{
+    "intent": "greeting",
+    "answers": [
+        {
+            "specificIntent": "saludos",
+            "keys": [
+                "hola",
+                "holi",
+                "ola",
+                "buenas"
+            ],
+            "options": [
+                "hola",
+                "holiii",
+                "bienvenido"
+            ]
+        },
+        {
+            "specificIntent": "despedidas",
+            "keys": [
+                "adios",
+                "hasta pronto",
+                "hasta luego"
+            ],
+            "options": [
+                "adios",
+                "goodbye",
+                "adiosito",
+                "nos vemos, cuidate"
+            ]
+        },
+        {
+            "specificIntent": "saludoshaciami",
+            "keys": [],
+            "options": [
+                "precioso {usuario}",
+                "querido {usuario}",
+                "{usuario}. Como estas?",
+                "{usuario}. Que tal tu dia?",
+                "{usuario}. Que tal?"
+            ]
+        }
+    ]
+}
