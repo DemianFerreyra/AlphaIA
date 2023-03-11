@@ -38,6 +38,33 @@
                 "el helado de vainilla",
                 "su gato"
             ]
+        },
+        {
+            "specificIntent": "unknownLikes",
+            "keys": [
+                "likesQuestions"
+            ],
+            "options": [
+                "no se",
+                "no estoy segura de que a {creator} le guste {unknownIfLike} o no",
+                "quizas...",
+                "no estoy segura",
+                "no lo se",
+                "que es {unknownIfLike}?",
+                "que es {unknownIfLike}?... quizas le pueda gustar"
+            ]
+        },
+        {
+            "specificIntent": "knownLikes",
+            "keys": [
+                "likesQuestions"
+            ],
+            "options": [
+                "estoy segura de que a {creator} le gusta {unknownIfLike}",
+                "si...",
+                "asi es",
+                "{unknownIfLike}?... si, me dijo que le gustaba"
+            ]
         }
     ]
 }

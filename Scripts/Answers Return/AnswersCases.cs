@@ -15,6 +15,11 @@ public class AnswersCases : MonoBehaviour
         if (currentWordOrder == 0)
         { //es decir si es la primer palabra
             currentWordOrder += 1;
+            if (currentWord.wordTypes.Contains("reference"))
+            {
+                latestWord = "reference";
+                return "ignore";
+            }
             if (currentWord.wordTypes.Contains("unknown"))
             {
                 latestWord = "unknown";
@@ -154,6 +159,27 @@ public class AnswersCases : MonoBehaviour
                     return "ignore";
                 }
             }
+            if (latestWord == "reference")
+            {
+                if (currentWord.wordTypes.Contains("question"))
+                {
+                    Debug.Log($"se me pregunto sobre a: {currentWord.word}");
+                    return "ignore";
+                }
+                if (currentWord.wordTypes.Contains("unknown"))
+                {
+                    if (StringCompare("Demian", currentWord.word) > 56)
+                    {
+                        extraData = "creator";
+                        return "ignore";
+                    }
+                    if (StringCompare("Alpha", currentWord.word) > 56)
+                    {
+                        extraData = "self";
+                        return "ignore";
+                    }
+                }
+            }
             return "ignore";
         }
         if (currentWordOrder > 1)
@@ -161,7 +187,7 @@ public class AnswersCases : MonoBehaviour
             currentWordOrder += 1;
             if (latestWord == "reference")
             {
-                if (currentWord.wordTypes[0] == "unknown" || currentWord.wordTypes[0] == "person")
+                if (currentWord.wordTypes[0] == "unknown")
                 {
                     if (extraData == "likesQuestion")
                     {
@@ -173,15 +199,23 @@ public class AnswersCases : MonoBehaviour
                         {
                             return $"secondpersonquestion:likesQuestions:alpha";
                         }
-                        // else if (StringCompare("Alpha", currentWord.word) < 56)
-                        // {
-                        //     return $"secondpersonquestion:likes:{currentWord.word}";
-                        // }
-                    }
-
-                    else
-                    {
                         return $"unknown:objetivodesconocido:{currentWord.word}";
+                    }
+                }
+                if (currentWord.wordTypes.Contains("question"))
+                {
+                    if (extraData == "creator")
+                    {
+                        string[] questionAboutLikes = { "gusta", "gusto" };
+                        foreach (var question in questionAboutLikes)
+                        {
+                            if (question == currentWord.word)
+                            {
+                                latestWord = "likesQuestion";
+                                return "ignore";
+                            }
+                        }
+                        return $"secondpersonquestion:questions:alpha";
                     }
                 }
             }
@@ -238,6 +272,10 @@ public class AnswersCases : MonoBehaviour
                     latestWord = "reference";
                     extraData = "likesQuestion";
                     return "ignore";
+                }
+                if (extraData == "creator")
+                {
+                    return $"like:creator:{currentWord.word}";
                 }
                 return $"like:{currentWord.answerType}:{currentWord.word}";
             }

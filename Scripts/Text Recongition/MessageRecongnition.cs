@@ -50,6 +50,7 @@ public class MessageRecongnition : MonoBehaviour
             responses.Add(ReadWord(word, _words.Length));
         }
         string fullWord = "";
+        bool isForCreator = false;
         foreach (var response in responses)
         {
             if (response == "ignore")
@@ -98,10 +99,15 @@ public class MessageRecongnition : MonoBehaviour
                             fullWord += $"{responseData[2]}";
                         }
                     }
-                    else if (responseData[1] == "conjunction")
+                    else if (responseData[1] == "creator")
                     {
-                        responsesToGive.Add(getCorrectAnswers.ReturnAnswerToQuestion(responseData[2], responseData[1]));
+                        isForCreator = true;
+                        fullWord += $"{responseData[2]}";
                     }
+                    // else if (responseData[1] == "conjunction")
+                    // {
+                    //     responsesToGive.Add(getCorrectAnswers.ReturnAnswerToQuestion(responseData[2], responseData[1]));
+                    // }
                 }
                 else if (responseData[0] == "unknown")
                 {
@@ -119,7 +125,7 @@ public class MessageRecongnition : MonoBehaviour
         {
             responsesToGive.Add("await");
             leftToAnswer += 1;
-            StartCoroutine(getCorrectAnswers.SearchUnknown(fullWord));
+            StartCoroutine(getCorrectAnswers.SearchUnknown(fullWord, isForCreator));
         }
         answerManager.latestWord = "";
         answerManager.latestWordType = "";
