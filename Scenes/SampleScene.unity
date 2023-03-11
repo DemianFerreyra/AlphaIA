@@ -6573,6 +6573,7 @@ MonoBehaviour:
   currentWordOrder: 0
   latestWord: 
   latestWordType: 
+  extraData: 
 --- !u!114 &1820949888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6589,6 +6590,7 @@ MonoBehaviour:
     intent: 
     answers: []
   msgReader: {fileID: 1820949885}
+  dataBaseManagment: {fileID: 1820949886}
 --- !u!114 &1820949889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6602,6 +6604,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isReadyToAnswer: 1
+  getCorrectAnswers: {fileID: 1820949888}
 --- !u!1 &1851529429
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,0 +1,40 @@
+{
+    "intent": "demian",
+    "answers": [
+        {
+            "specificIntent": "likesQuestions",
+            "keys": [
+                "likesQuestions"
+            ],
+            "options": [
+                "me gusta mucho {likesAlpha}",
+                "soy bastante fan de {likesAlpha}",
+                "me gusta jugar {videogameLikesAlpha}",
+                "{videogameLikesAlpha} me gusta mucho!",
+                "{likesAlpha}",
+                "probablemente {likesAlpha}"
+            ]
+        },
+        {
+            "specificIntent": "videogameLikes",
+            "keys": [
+                "videogameLikes"
+            ],
+            "options": [
+                "minecraft",
+                "among us"
+            ]
+        },
+        {
+            "specificIntent": "likes",
+            "keys": [
+                "likes"
+            ],
+            "options": [
+                "el minecraft",
+                "el helado de frutilla",
+                "mi chat de twitch"
+            ]
+        }
+    ]
+}

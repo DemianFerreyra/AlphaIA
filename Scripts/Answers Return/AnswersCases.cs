@@ -10,7 +10,7 @@ public class AnswersCases : MonoBehaviour
     public string latestWordType;
     public string extraData;
 
-    public string GetAnswer(Word currentWord)
+    public string GetAnswer(Word currentWord, int wordCount)
     {
         if (currentWordOrder == 0)
         { //es decir si es la primer palabra
@@ -125,6 +125,20 @@ public class AnswersCases : MonoBehaviour
             }
             if (latestWord == "question")
             {
+                if (currentWord.wordTypes.Contains("question"))
+                {
+                    if (currentWord.answerType.Contains("gustos"))
+                    {
+                        if (wordCount == currentWordOrder)
+                        {
+                            return "secondpersonquestion:likesQuestions:alpha";
+                        }
+                        latestWord = "likesQuestion";
+                        extraData = "likesQuestion";
+                        return "ignore";
+                    }
+                    return "ignore";
+                }
                 return "ignore";
             }
             if (latestWord == "timeQuestion")
@@ -147,7 +161,6 @@ public class AnswersCases : MonoBehaviour
             currentWordOrder += 1;
             if (latestWord == "reference")
             {
-                Debug.Log($"llegue aca y el wordtype es: {currentWord.wordTypes[0]}, la extra data es: {extraData}");
                 if (currentWord.wordTypes[0] == "unknown" || currentWord.wordTypes[0] == "person")
                 {
                     if (extraData == "likesQuestion")
@@ -155,6 +168,10 @@ public class AnswersCases : MonoBehaviour
                         if (StringCompare("Demian", currentWord.word) > 56)
                         {
                             return $"secondpersonquestion:likesQuestions:demian";
+                        }
+                        if (StringCompare("Alpha", currentWord.word) > 56)
+                        {
+                            return $"secondpersonquestion:likesQuestions:alpha";
                         }
                         // else if (StringCompare("Alpha", currentWord.word) < 56)
                         // {
@@ -175,6 +192,10 @@ public class AnswersCases : MonoBehaviour
                     latestWord = "question";
                     if (currentWord.answerType.Contains("gustos"))
                     {
+                        if (wordCount - 1 == currentWordOrder)
+                        {
+                            return $"secondpersonquestion:likesQuestions:alpha";
+                        }
                         latestWord = "likesQuestion";
                         extraData = "likesQuestion";
                         return "ignore";

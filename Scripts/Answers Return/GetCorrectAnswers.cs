@@ -7,6 +7,7 @@ public class GetCorrectAnswers : MonoBehaviour
 {
     public Answers intent;
     public MessageRecongnition msgReader;
+    public DatabaseManagment dataBaseManagment;
     public string ReturnCorrectAnswer(string wordType, string word)
     {
         intent = JsonUtility.FromJson<Answers>(File.ReadAllText(Application.dataPath + $"/Data/Common Answers/{wordType}s.json"));
@@ -86,7 +87,6 @@ public class GetCorrectAnswers : MonoBehaviour
             }
         }
         msgReader.leftToAnswer -= 1;
-        Debug.Log("final answer = " + finalResponse[1]);
         for (int i = 0; i < msgReader.responsesToGive.Count; i++)
         {
             if (msgReader.responsesToGive[i] == "await")

@@ -24,6 +24,8 @@ public class AIManager : MonoBehaviour
 
         sb.Replace("{videogameLikesDemi}", getCorrectAnswers.ReturnCorrectAnswer("demian", "videogameLikes"));
         sb.Replace("{likesDemi}", getCorrectAnswers.ReturnCorrectAnswer("demian", "likes"));
+        sb.Replace("{videogameLikesAlpha}", getCorrectAnswers.ReturnCorrectAnswer("alpha", "videogameLikes"));
+        sb.Replace("{likesAlpha}", getCorrectAnswers.ReturnCorrectAnswer("alpha", "likes"));
         sb.Replace("{usuario}", "usuario");
         sb.Replace("{creator}", creatorNames[Random.Range(0, 2)]);
 

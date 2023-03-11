@@ -47,7 +47,7 @@ public class MessageRecongnition : MonoBehaviour
         List<string> responses = new List<string>();
         foreach (var word in _words)
         {
-            responses.Add(ReadWord(word));
+            responses.Add(ReadWord(word, _words.Length));
         }
         string fullWord = "";
         foreach (var response in responses)
@@ -104,7 +104,7 @@ public class MessageRecongnition : MonoBehaviour
         answerManager.extraData = "";
         answerManager.currentWordOrder = 0;
     }
-    private string ReadWord(string word)
+    private string ReadWord(string word, int wordCount)
     {
         //las palabras se guardaran en un json usando hash tables para reducir la complejidad algoritmica a la hora de buscar la palabra concreta. En el archivo json cada palabra estara guardada con su hash (por ejemplo hola => 104 111 108 97 => 420 lo cual dividido por la cantidad de entradas que tendra la tabla, nos da su indice)
         //luego una vez se acceda a esa palabra, se leera su informacion (por ejemplo, "hola" sera un objeto con informacion que diga que es un saludo, si puede ser una pregunta, si puede ser un verbo, etc) y en base a eso se sacaran las respuestas correspondientes
@@ -116,7 +116,7 @@ public class MessageRecongnition : MonoBehaviour
         if (databaseManager.dictionary.codes[suma].words.Find(_word => _word.word == word) != null)
         {
             Word currentWord = databaseManager.dictionary.codes[suma].words.Find(_word => _word.word == word);
-            string answer = answerManager.GetAnswer(currentWord);
+            string answer = answerManager.GetAnswer(currentWord, wordCount);
             return answer;
         }
         else
@@ -125,7 +125,7 @@ public class MessageRecongnition : MonoBehaviour
             unknown[0] = "unknown";
             databaseManager.AddNewWordsToDiscover(word, suma);
 
-            string answer = answerManager.GetAnswer(new Word(word, unknown, "unknown"));
+            string answer = answerManager.GetAnswer(new Word(word, unknown, "unknown"), wordCount);
             return answer;
         }
     }
