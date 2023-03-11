@@ -59,7 +59,18 @@ public class MessageRecongnition : MonoBehaviour
             else
             {
                 string[] responseData = response.Split(":");
-                if (responseData[0] == "question" || responseData[0] == "like")
+                if (responseData[0] == "secondpersonquestion")
+                {
+                    if (responseData[1] == "unknown")
+                    {
+                        fullWord += $"{responseData[2]}";
+                    }
+                    else if (responseData[2] == "demian" || responseData[2] == "alpha")
+                    {
+                        responsesToGive.Add(getCorrectAnswers.ReturnCorrectAnswer(responseData[2], responseData[1]));
+                    }
+                }
+                else if (responseData[0] == "question" || responseData[0] == "like")
                 {
                     if (responseData[1] == "unknown")
                     {
@@ -90,6 +101,7 @@ public class MessageRecongnition : MonoBehaviour
         }
         answerManager.latestWord = "";
         answerManager.latestWordType = "";
+        answerManager.extraData = "";
         answerManager.currentWordOrder = 0;
     }
     private string ReadWord(string word)

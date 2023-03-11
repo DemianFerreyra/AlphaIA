@@ -6500,6 +6500,7 @@ GameObject:
   - component: {fileID: 1820949885}
   - component: {fileID: 1820949887}
   - component: {fileID: 1820949888}
+  - component: {fileID: 1820949889}
   m_Layer: 0
   m_Name: test
   m_TagString: Untagged
@@ -6534,6 +6535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d84b0962f9dadce43bac971e3012bd9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Alpha: {fileID: 1820949889}
   databaseManager: {fileID: 1820949886}
   answerManager: {fileID: 1820949887}
   getCorrectAnswers: {fileID: 1820949888}
@@ -6587,6 +6589,19 @@ MonoBehaviour:
     intent: 
     answers: []
   msgReader: {fileID: 1820949885}
+--- !u!114 &1820949889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1820949882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db6aacbf0330ff24795734d5292f967f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isReadyToAnswer: 1
 --- !u!1 &1851529429
 GameObject:
   m_ObjectHideFlags: 0

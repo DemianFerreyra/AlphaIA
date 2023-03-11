@@ -1,0 +1,43 @@
+{
+    "intent": "demian",
+    "answers": [
+        {
+            "specificIntent": "likesQuestions",
+            "keys": [
+                "likesQuestions"
+            ],
+            "options": [
+                "se que a {creator} le gusta mucho {likesDemi}",
+                "mmmm...los gustos de {creator}? bueno, diria que {likesDemi}",
+                "al inutil ese no le gusta nada...",
+                "{creator}?... bueno, juega mucho {videogameLikesDemi}"
+            ]
+        },
+        {
+            "specificIntent": "videogameLikes",
+            "keys": [
+                "videogameLikes"
+            ],
+            "options": [
+                "voley",
+                "minecraft",
+                "warThunder",
+                "phasmophobia"
+            ]
+        },
+        {
+            "specificIntent": "likes",
+            "keys": [
+                "likes"
+            ],
+            "options": [
+                "el voley",
+                "minecraft",
+                "warThunder",
+                "phasmophobia",
+                "el helado de vainilla",
+                "su gato"
+            ]
+        }
+    ]
+}

@@ -8,6 +8,8 @@ public class AnswersCases : MonoBehaviour
     public int currentWordOrder;
     public string latestWord;
     public string latestWordType;
+    public string extraData;
+
     public string GetAnswer(Word currentWord)
     {
         if (currentWordOrder == 0)
@@ -101,8 +103,8 @@ public class AnswersCases : MonoBehaviour
                     {
                         if (question == currentWord.word)
                         {
-                           latestWord = "likesQuestion";
-                        return "ignore";
+                            latestWord = "likesQuestion";
+                            return "ignore";
                         }
                     }
                     return $"question:{currentWord.answerType}:{currentWord.word}";
@@ -113,6 +115,11 @@ public class AnswersCases : MonoBehaviour
                 if (currentWord.wordTypes.Contains("question"))
                 {
                     latestWord = "question";
+                    if (currentWord.answerType.Contains("gustos"))
+                    {
+                        latestWord = "likesQuestion";
+                        return "ignore";
+                    }
                     return $"question:{currentWord.answerType}:{currentWord.word}";
                 }
             }
@@ -138,8 +145,47 @@ public class AnswersCases : MonoBehaviour
         if (currentWordOrder > 1)
         {
             currentWordOrder += 1;
+            if (latestWord == "reference")
+            {
+                Debug.Log($"llegue aca y el wordtype es: {currentWord.wordTypes[0]}, la extra data es: {extraData}");
+                if (currentWord.wordTypes[0] == "unknown" || currentWord.wordTypes[0] == "person")
+                {
+                    if (extraData == "likesQuestion")
+                    {
+                        if (StringCompare("Demian", currentWord.word) > 56)
+                        {
+                            return $"secondpersonquestion:likesQuestions:demian";
+                        }
+                        // else if (StringCompare("Alpha", currentWord.word) < 56)
+                        // {
+                        //     return $"secondpersonquestion:likes:{currentWord.word}";
+                        // }
+                    }
+
+                    else
+                    {
+                        return $"unknown:objetivodesconocido:{currentWord.word}";
+                    }
+                }
+            }
             if (latestWord == "question" || latestWord == "conjunction")
             {
+                if (currentWord.wordTypes.Contains("question"))
+                {
+                    latestWord = "question";
+                    if (currentWord.answerType.Contains("gustos"))
+                    {
+                        latestWord = "likesQuestion";
+                        extraData = "likesQuestion";
+                        return "ignore";
+                    }
+                    return "ignore";
+                }
+                if (currentWord.wordTypes.Contains("reference"))
+                {
+                    latestWord = "reference";
+                    return "ignore";
+                }
                 if (currentWord.wordTypes.Contains("conjunction"))
                 {
                     return "ignore";
@@ -166,6 +212,12 @@ public class AnswersCases : MonoBehaviour
             }
             if (latestWord == "likesQuestion")
             {
+                if (currentWord.wordTypes.Contains("reference"))
+                {
+                    latestWord = "reference";
+                    extraData = "likesQuestion";
+                    return "ignore";
+                }
                 return $"like:{currentWord.answerType}:{currentWord.word}";
             }
         }
