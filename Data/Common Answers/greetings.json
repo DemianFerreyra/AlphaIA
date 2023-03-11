@@ -10,9 +10,9 @@
                 "buenas"
             ],
             "options": [
-                "hola",
-                "holiii",
-                "bienvenido"
+                "hola,",
+                "holiii,",
+                "bienvenido,"
             ]
         },
         {
@@ -23,10 +23,10 @@
                 "hasta luego"
             ],
             "options": [
-                "adios",
-                "goodbye",
-                "adiosito",
-                "nos vemos, cuidate"
+                "adios,",
+                "goodbye,",
+                "adiosito,",
+                "nos vemos, cuidate,"
             ]
         },
         {

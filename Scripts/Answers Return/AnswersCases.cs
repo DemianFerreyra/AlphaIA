@@ -217,6 +217,7 @@ public class AnswersCases : MonoBehaviour
                         return $"secondpersonquestion:questions:alpha";
                     }
                 }
+                return $"question:{currentWord.answerType}:{currentWord.word}";
             }
             if (latestWord == "question" || latestWord == "conjunction")
             {
@@ -248,6 +249,7 @@ public class AnswersCases : MonoBehaviour
                 {
                     return $"question:{currentWord.answerType}:{currentWord.word}";
                 }
+                return $"question:{currentWord.answerType}:{currentWord.word}";
             }
             if (latestWord == "timeQuestion")
             {

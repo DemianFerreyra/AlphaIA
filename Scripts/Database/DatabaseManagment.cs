@@ -93,11 +93,11 @@ public class DatabaseManagment : MonoBehaviour
     {
         string updatedArray = JsonUtility.ToJson(dictionary);
         File.WriteAllText(Application.dataPath + "/Data/Dictionary.json", updatedArray);
-        string[] _intents = File.ReadAllText(Application.dataPath + "/Data/intents.txt").Split(",");
-        foreach (var intent in _intents)
-        {
-            UpdateAnswersDictionary(intent);
-        }
+        // string[] _intents = File.ReadAllText(Application.dataPath + "/Data/intents.txt").Split(",");
+        // foreach (var intent in _intents)
+        // {
+        //     UpdateAnswersDictionary(intent);
+        // }
     }
     private void UpdateAnswersDictionary(string intent)
     {

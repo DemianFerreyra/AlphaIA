@@ -73,7 +73,6 @@ public class MessageRecongnition : MonoBehaviour
                 }
                 else if (responseData[0] == "question" || responseData[0] == "like")
                 {
-                    Debug.Log(responseData[1]);
                     int suma = 0;
                     foreach (var character in responseData[2])
                     {
