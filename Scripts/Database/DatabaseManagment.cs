@@ -8,6 +8,7 @@ using System.IO;
 public class ASCIIcode
 {
     public List<Word> words;
+    public List<Like> likes;
 }
 [System.Serializable]
 public class Word
@@ -55,6 +56,19 @@ public class Words
 {
     public List<ASCIIcode> codes;
 }
+[System.Serializable]
+public class Like
+{
+    public string name;
+    public bool likesOrNot;
+    public Like(string _name, bool _likesOrNot){
+        name = _name;
+        likesOrNot = _likesOrNot;
+    }
+}
+
+
+
 public class DatabaseManagment : MonoBehaviour
 {
     public TextAsset textJSON;
@@ -83,9 +97,9 @@ public class DatabaseManagment : MonoBehaviour
         foreach (var intent in _intents)
         {
             UpdateAnswersDictionary(intent);
-        }    
+        }
     }
-     private void UpdateAnswersDictionary(string intent)
+    private void UpdateAnswersDictionary(string intent)
     {
         string updatedArray = JsonUtility.ToJson(answers.Find(answer => answer.intent == intent));
         File.WriteAllText(Application.dataPath + $"/Data/Common Answers/{intent}s.json", updatedArray);

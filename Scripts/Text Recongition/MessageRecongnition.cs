@@ -8,8 +8,9 @@ public class MessageRecongnition : MonoBehaviour
     public DatabaseManagment databaseManager;
     public AnswersCases answerManager;
     public GetCorrectAnswers getCorrectAnswers;
-    public bool stillAnswering;
+    public int leftToAnswer = 0;
     public List<string> intents = new List<string>();
+    public List<string> responsesToGive = new List<string>();
 
     void Start()
     {
@@ -17,6 +18,13 @@ public class MessageRecongnition : MonoBehaviour
         foreach (var intent in _intents)
         {
             intents.Add(intent);
+        }
+    }
+    void Update()
+    {
+        if (leftToAnswer == 0)
+        {
+          responsesToGive.Clear();
         }
     }
     public void ReadMessage(string message)
@@ -41,28 +49,33 @@ public class MessageRecongnition : MonoBehaviour
             else
             {
                 string[] responseData = response.Split(":");
-                if (responseData[0] == "question" || responseData[0] == "likes")
+                if (responseData[0] == "question" || responseData[0] == "like")
                 {
-                    Debug.Log(getCorrectAnswers.ReturnAnswerToQuestion(responseData[2], responseData[1]));
                     if (responseData[1] == "unknown")
                     {
                         fullWord += $"{responseData[2]}";
                     }
-
+                    else if (responseData[1] == "conjunction")
+                    {
+                        responsesToGive.Add(getCorrectAnswers.ReturnAnswerToQuestion(responseData[2], responseData[1]));
+                    }
                 }
-                if(responseData[0] == "unknown"){
+                else if (responseData[0] == "unknown")
+                {
                     string msg = "..." + getCorrectAnswers.ReturnCorrectAnswer(responseData[0], responseData[1]);
                     string newmsg = msg.Replace("#", responseData[2]);
-                    Debug.Log(newmsg);
+                    responsesToGive.Add(newmsg);
                 }
                 else
                 {
-                    Debug.Log(getCorrectAnswers.ReturnCorrectAnswer(responseData[0], responseData[1]));
+                    responsesToGive.Add(getCorrectAnswers.ReturnCorrectAnswer(responseData[0], responseData[1]));
                 }
             }
         }
         if (fullWord.Length > 1)
         {
+            responsesToGive.Add("await");
+            leftToAnswer += 1;
             StartCoroutine(getCorrectAnswers.SearchUnknown(fullWord));
         }
         answerManager.latestWord = "";
@@ -82,7 +95,6 @@ public class MessageRecongnition : MonoBehaviour
         {
             Word currentWord = databaseManager.dictionary.codes[suma].words.Find(_word => _word.word == word);
             string answer = answerManager.GetAnswer(currentWord);
-            Debug.Log(answer);
             return answer;
         }
         else
@@ -92,7 +104,6 @@ public class MessageRecongnition : MonoBehaviour
             databaseManager.AddNewWordsToDiscover(word, suma);
 
             string answer = answerManager.GetAnswer(new Word(word, unknown, "unknown"));
-            Debug.Log(answer);
             return answer;
         }
     }

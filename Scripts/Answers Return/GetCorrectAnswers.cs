@@ -6,6 +6,7 @@ using UnityEngine.Networking;
 public class GetCorrectAnswers : MonoBehaviour
 {
     public Answers intent;
+    public MessageRecongnition msgReader;
     public string ReturnCorrectAnswer(string wordType, string word)
     {
         intent = JsonUtility.FromJson<Answers>(File.ReadAllText(Application.dataPath + $"/Data/Common Answers/{wordType}s.json"));
@@ -24,11 +25,11 @@ public class GetCorrectAnswers : MonoBehaviour
         {
             return "estoy bien";
         }
-        if (questionType == "likes")
+        if (questionType == "like")
         {
             return $"si, me gusta {question}";
         }
-        if (questionType == "tomorrow" || questionType == "yesterday" || questionType == "hoy")
+        if (questionType == "tomorrow" || questionType == "yesterday" || questionType == "today")
         {
             return $"{questionType} {question}";
         }
@@ -41,11 +42,52 @@ public class GetCorrectAnswers : MonoBehaviour
         string responseToComa = "";
         foreach (var character in webInfo.downloadHandler.text)
         {
-            if(character != '[' && character != ']' && character != '{' && character != '}' && character != '"'){
+            if (character != '[' && character != ']' && character != '{' && character != '}' && character != '"')
+            {
                 responseToComa += character;
             }
         }
         string[] finalResponse = responseToComa.Split(",");
-        Debug.Log(finalResponse[1]);
+        int suma = 0;
+        foreach (var character in finalResponse[1])
+        {
+            suma += System.Convert.ToInt32(character);
+        }
+
+        if (msgReader.databaseManager.dictionary.codes[suma % 4000].likes.Count == 0)
+        {
+            string msg = ReturnCorrectAnswer("unknown", "gustosdesconocidos");
+            string newmsg = msg.Replace("#", finalResponse[1].ToLower());
+            Debug.Log(newmsg);
+        }
+        for (int i = 0; i < msgReader.databaseManager.dictionary.codes[suma % 4000].likes.Count; i++)
+        {
+            Like like = msgReader.databaseManager.dictionary.codes[suma % 4000].likes[i];
+            if (like.name == unknown)
+            {
+                if (like.likesOrNot == true)
+                {
+                    Debug.Log("a alpha si le gusta " + unknown);
+                }
+                else
+                {
+                    Debug.Log("a alpha no le gusta " + unknown);
+                }
+            }
+            else
+            {
+                string msg = ReturnCorrectAnswer("unknown", "gustosdesconocidos");
+                string newmsg = msg.Replace("#", finalResponse[1].ToLower());
+                Debug.Log(newmsg);
+            }
+        }
+        msgReader.leftToAnswer -= 1;
+        for (int i = 0; i < msgReader.responsesToGive.Count; i++)
+        {
+            if (msgReader.responsesToGive[i] == "await")
+            {
+                msgReader.responsesToGive[i] = finalResponse[1];
+            }
+        }
     }
 }

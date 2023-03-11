@@ -67,7 +67,7 @@ public class AnswersCases : MonoBehaviour
                     currentWordOrder = 0;
                     if (StringCompare("alphaIA", currentWord.word) < 56)
                     {
-                        return $"unknown:nombredesconocido:{currentWord.word}";
+                        return $"unknown:nombresdesconocidos:{currentWord.word}";
                     }
                     else
                     {
@@ -154,14 +154,14 @@ public class AnswersCases : MonoBehaviour
                 {
                     if (latestWordType.Length > 1)
                     {
-                        return $"likes:{currentWord.answerType}:{currentWord.word}";
+                        return $"like:{currentWord.answerType}:{currentWord.word}";
                     }
                     return "ignore";
                 }
             }
             if (latestWord == "likesQuestion")
             {
-                return $"likes:{currentWord.answerType}:{currentWord.word}";
+                return $"like:{currentWord.answerType}:{currentWord.word}";
             }
         }
         return "ignore";
