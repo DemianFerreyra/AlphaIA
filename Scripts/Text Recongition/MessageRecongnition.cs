@@ -72,9 +72,31 @@ public class MessageRecongnition : MonoBehaviour
                 }
                 else if (responseData[0] == "question" || responseData[0] == "like")
                 {
+                    int suma = 0;
+                    foreach (var character in responseData[2])
+                    {
+                        suma += System.Convert.ToInt32(character);
+                    }
                     if (responseData[1] == "unknown")
                     {
-                        fullWord += $"{responseData[2]}";
+                        if (databaseManager.dictionary.codes[suma].likes.Find(_like => _like.name == responseData[2]) != null)
+                        {
+                            string msg = "";
+                            if (databaseManager.dictionary.codes[suma].likes.Find(_like => _like.name == responseData[2]).likesOrNot == true)
+                            {
+                                msg = getCorrectAnswers.ReturnCorrectAnswer("question", "gustosconocidospositivo");
+                            }
+                            else
+                            {
+                                msg = getCorrectAnswers.ReturnCorrectAnswer("question", "gustosconocidosnegativo");
+                            }
+                            string newmsg = msg.Replace("#", responseData[2].ToLower());
+                            responsesToGive.Add(newmsg);
+                        }
+                        else
+                        {
+                            fullWord += $"{responseData[2]}";
+                        }
                     }
                     else if (responseData[1] == "conjunction")
                     {
