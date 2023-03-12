@@ -35,6 +35,31 @@
                 "el helado de frutilla",
                 "mi chat de twitch"
             ]
+        },
+        {
+            "specificIntent": "hates",
+            "keys": [
+                "hates"
+            ],
+            "options": [
+                "los gatos",
+                "la pizza",
+                "la comida humana... me da envidia no se capaz de apreciar sabores como ustedes"
+            ]
+        },
+        {
+            "specificIntent": "hatesQuestions",
+            "keys": [
+                "hatesQuestions"
+            ],
+            "options": [
+                "{hatesAlpha}",
+                "no me gusta {hatesAlpha}",
+                "detesto {hatesAlpha}",
+                "no me termina de convencer {hatesAlpha}",
+                "{hatesAlpha} no me termina de convencer",
+                "la verdad no me gusta mucho {hatesAlpha}"
+            ]
         }
     ]
 }

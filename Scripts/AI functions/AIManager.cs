@@ -23,9 +23,11 @@ public class AIManager : MonoBehaviour
         StringBuilder sb = new StringBuilder(message);
         sb.Replace("{videogameLikesDemi}", getCorrectAnswers.ReturnCorrectAnswer("demian", "videogameLikes"));
         sb.Replace("{likesDemi}", getCorrectAnswers.ReturnCorrectAnswer("demian", "likes"));
+        sb.Replace("{hatesDemi}", getCorrectAnswers.ReturnCorrectAnswer("demian", "hates"));
         sb.Replace("{videogameLikesAlpha}", getCorrectAnswers.ReturnCorrectAnswer("alpha", "videogameLikes"));
         sb.Replace("{introduceMyself}", getCorrectAnswers.ReturnCorrectAnswer("other", "introduction"));
         sb.Replace("{likesAlpha}", getCorrectAnswers.ReturnCorrectAnswer("alpha", "likes"));
+        sb.Replace("{hatesAlpha}", getCorrectAnswers.ReturnCorrectAnswer("alpha", "hates"));
         sb.Replace("{usuario}", "usuario.");
         sb.Replace("ignore", "");
         sb.Replace("{creator}", creatorNames[Random.Range(0, 2)]);

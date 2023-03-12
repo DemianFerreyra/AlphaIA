@@ -59,20 +59,20 @@
             ]
         },
         {
-            "specificIntent": "knownHates",
+            "specificIntent": "hatesQuestions",
             "keys": [
-                "knownHates"
+                "hatesQuestions"
             ],
             "options": [
-                "se que a {creator} no le gusta {hates} o no",
-                "si no me equivoco, no le gusta {hates}",
-                "no le gusta {hates}",
-                "odia {hates}",
-                "{hates}",
-                "detesta {hates}",
-                "detesta {hates} con el 100% de su cuerpo",
-                "detesta {hates} con el 100% de su cuerpo y alma",
-                "hasta lo que se, {creator} odia {hates}"
+                "se que a {creator} no le gusta {hatesDemi} o no",
+                "si no me equivoco, no le gusta {hatesDemi}",
+                "no le gusta {hatesDemi}",
+                "odia {hatesDemi}",
+                "{hatesDemi}",
+                "detesta {hatesDemi}",
+                "detesta {hatesDemi} con el 100% de su cuerpo",
+                "detesta {hatesDemi} con el 100% de su cuerpo y alma",
+                "hasta lo que se, {creator} odia {hatesDemi}"
             ]
         },
         {

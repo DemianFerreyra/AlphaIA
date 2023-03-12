@@ -51,6 +51,7 @@ public class MessageRecongnition : MonoBehaviour
         }
         string fullWord = "";
         bool isForCreator = false;
+        string extraData = "";
         foreach (var response in responses)
         {
             if (response == "ignore")
@@ -60,7 +61,12 @@ public class MessageRecongnition : MonoBehaviour
             else
             {
                 string[] responseData = response.Split(":");
-                Debug.Log($"0:{responseData[0]} 1:{responseData[1]} 2:{responseData[2]}");
+                if(responseData[2] == "hatesQuestion"){
+                    extraData = "hatesQuestion";
+                }
+                else if(responseData[2] == "likesQuestion"){
+                    extraData = "likesQuestion";
+                }
                 if (responseData[0] == "secondpersonquestion")
                 {
                     if (responseData[1] == "unknown")
@@ -130,7 +136,7 @@ public class MessageRecongnition : MonoBehaviour
         {
             responsesToGive.Add("await");
             leftToAnswer += 1;
-            StartCoroutine(getCorrectAnswers.SearchUnknown(fullWord, isForCreator));
+            StartCoroutine(getCorrectAnswers.SearchUnknown(fullWord, isForCreator, extraData));
         }
         answerManager.latestWord = "";
         answerManager.latestWordType = "";

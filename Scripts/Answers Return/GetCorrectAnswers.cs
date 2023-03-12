@@ -35,16 +35,25 @@ public class GetCorrectAnswers : MonoBehaviour
         {
             foreach (var answer in intent.answers)
             {
-                if (answer.specificIntent == "hates")
+                if (answer.specificIntent == "likes")
                 {
                     if (answer.options.Contains(question.ToLower()))
                     {
-                        string msg2 = intent.answers.Find(intent => intent.specificIntent == "knownHates").options[Random.Range(0, intent.answers.Find(intent => intent.specificIntent == "knownLikes").options.Count)];
-                        string newmsg2 = msg2.Replace("{hates}", question);
+                        string msg2 = intent.answers.Find(intent => intent.specificIntent == "knownLikes").options[Random.Range(0, intent.answers.Find(intent => intent.specificIntent == "knownLikes").options.Count)];
+                        string newmsg2 = msg2.Replace("{unknownIfLike}", question);
                         return newmsg2;
                     }
                 }
-                else if (answer.specificIntent == "likes")
+            }
+            string msg = intent.answers.Find(intent => intent.specificIntent == "unknownLikes").options[Random.Range(0, intent.answers.Find(intent => intent.specificIntent == "knownLikes").options.Count)];
+            string newmsg = msg.Replace("{unknownIfLike}", question);
+            return newmsg;
+        }
+        if (questionType == "hate")
+        {
+            foreach (var answer in intent.answers)
+            {
+                if (answer.specificIntent == "likes")
                 {
                     if (answer.options.Contains(question.ToLower()))
                     {
@@ -64,7 +73,7 @@ public class GetCorrectAnswers : MonoBehaviour
         }
         return "perdon... no entendi que quisiste preguntarme";
     }
-    public IEnumerator SearchUnknown(string unknown, bool isForCreator)
+    public IEnumerator SearchUnknown(string unknown, bool isForCreator, string extraParam)
     {
         UnityWebRequest webInfo = UnityWebRequest.Get($"https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search={unknown}&limit=1");
         yield return webInfo.SendWebRequest();
@@ -119,8 +128,16 @@ public class GetCorrectAnswers : MonoBehaviour
         }
         else
         {
-            string msg = ReturnAnswerToQuestion(finalResponse[1].ToLower(), "like", "demian");
-            finalResponse[1] = msg;
+            if (extraParam == "hatesQuestion")
+            {
+                string msg = ReturnAnswerToQuestion(finalResponse[1].ToLower(), "hate", "demian");
+                finalResponse[1] = msg;
+            }
+            else
+            {
+                string msg = ReturnAnswerToQuestion(finalResponse[1].ToLower(), "like", "demian");
+                finalResponse[1] = msg;
+            }
         }
         msgReader.leftToAnswer -= 1;
         for (int i = 0; i < msgReader.responsesToGive.Count; i++)

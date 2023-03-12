@@ -14,7 +14,6 @@ public class AnswersCases : MonoBehaviour
     {
         if (currentWord.wordTypes.Contains("insult"))
         {
-            Debug.Log("insulto");
             currentWordOrder += 1;
             latestWord = "NoSense";
             return $"other:{currentWord.answerType}:{currentWord.word}";
@@ -115,6 +114,11 @@ public class AnswersCases : MonoBehaviour
                         latestWord = "likesQuestion";
                         return "ignore";
                     }
+                    else if (currentWord.answerType == "odios")
+                    {
+                        latestWord = "hatesQuestion";
+                        return "ignore";
+                    }
                     return $"question:{currentWord.answerType}:{currentWord.word}";
                 }
             }
@@ -126,6 +130,11 @@ public class AnswersCases : MonoBehaviour
                     if (currentWord.answerType.Contains("gustos"))
                     {
                         latestWord = "likesQuestion";
+                        return "ignore";
+                    }
+                    else if (currentWord.answerType.Contains("odios"))
+                    {
+                        latestWord = "hatesQuestion";
                         return "ignore";
                     }
                     return $"question:{currentWord.answerType}:{currentWord.word}";
@@ -143,6 +152,16 @@ public class AnswersCases : MonoBehaviour
                         }
                         latestWord = "likesQuestion";
                         extraData = "likesQuestion";
+                        return "ignore";
+                    }
+                    else if (currentWord.answerType.Contains("odios"))
+                    {
+                        if (wordCount == currentWordOrder)
+                        {
+                            return "secondpersonquestion:hatesQuestions:alpha";
+                        }
+                        latestWord = "hatesQuestion";
+                        extraData = "hatesQuestion";
                         return "ignore";
                     }
                     return "ignore";
@@ -186,7 +205,6 @@ public class AnswersCases : MonoBehaviour
         }
         if (currentWordOrder > 1)
         {
-            Debug.Log(latestWord);
             if (currentWordOrder == 2 && latestWord == "")
             {
                 if (currentWord.wordTypes[0] == "unknown")
@@ -216,6 +234,18 @@ public class AnswersCases : MonoBehaviour
                         }
                         return $"unknown:objetivodesconocido:{currentWord.word}";
                     }
+                    else if (extraData == "hatesQuestion")
+                    {
+                        if (StringCompare("Demian", currentWord.word) > 56)
+                        {
+                            return $"secondpersonquestion:hatesQuestions:demian";
+                        }
+                        if (StringCompare("Alpha", currentWord.word) > 56)
+                        {
+                            return $"secondpersonquestion:hatesQuestions:alpha";
+                        }
+                        return $"unknown:objetivodesconocido:{currentWord.word}";
+                    }
                 }
                 if (currentWord.wordTypes.Contains("question"))
                 {
@@ -224,6 +254,11 @@ public class AnswersCases : MonoBehaviour
                         if (currentWord.answerType == "gustos")
                         {
                             latestWord = "likesQuestion";
+                            return "ignore";
+                        }
+                        else if (currentWord.answerType == "odios")
+                        {
+                            latestWord = "hatesQuestion";
                             return "ignore";
                         }
                         return $"secondpersonquestion:questions:alpha";
@@ -244,6 +279,16 @@ public class AnswersCases : MonoBehaviour
                         }
                         latestWord = "likesQuestion";
                         extraData = "likesQuestion";
+                        return "ignore";
+                    }
+                    else if (currentWord.answerType.Contains("odios"))
+                    {
+                        if (wordCount - 1 == currentWordOrder)
+                        {
+                            return $"secondpersonquestion:hatesQuestions:alpha";
+                        }
+                        latestWord = "hatesQuestion";
+                        extraData = "hatesQuestion";
                         return "ignore";
                     }
                     return $"question:{currentWord.answerType}:{currentWord.word}";
@@ -299,6 +344,28 @@ public class AnswersCases : MonoBehaviour
                     return $"like:creator:{currentWord.word}";
                 }
                 return $"like:{currentWord.answerType}:{currentWord.word}";
+            }
+            if (latestWord == "hatesQuestion")
+            {
+                if (currentWord.wordTypes.Contains("reference"))
+                {
+                    latestWord = "reference";
+                    extraData = "hatesQuestion";
+                    return "ignore";
+                }
+                if (StringCompare("Demian", currentWord.word) > 56)
+                {
+                    return $"secondpersonquestion:hatesQuestions:demian";
+                }
+                if (StringCompare("Alpha", currentWord.word) > 56)
+                {
+                    return $"secondpersonquestion:hatesQuestions:alpha";
+                }
+                if (extraData == "creator")
+                {
+                    return $"hate:creator:{currentWord.word}";
+                }
+                return $"hate:{currentWord.answerType}:{currentWord.word}";
             }
         }
         return "ignore";
