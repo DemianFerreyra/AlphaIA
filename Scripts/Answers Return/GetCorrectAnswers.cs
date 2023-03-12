@@ -27,15 +27,31 @@ public class GetCorrectAnswers : MonoBehaviour
         {
             return "estoy bien";
         }
+        if (questionType == "actualAction")
+        {
+            return "estoy en just chatting";
+        }
         if (questionType == "like")
         {
             foreach (var answer in intent.answers)
             {
-                if (answer.options.Contains(question.ToLower()))
+                if (answer.specificIntent == "hates")
                 {
-                    string msg2 = intent.answers.Find(intent => intent.specificIntent == "knownLikes").options[Random.Range(0, intent.answers.Find(intent => intent.specificIntent == "knownLikes").options.Count)];
-                    string newmsg2 = msg2.Replace("{unknownIfLike}", question);
-                    return newmsg2;
+                    if (answer.options.Contains(question.ToLower()))
+                    {
+                        string msg2 = intent.answers.Find(intent => intent.specificIntent == "knownHates").options[Random.Range(0, intent.answers.Find(intent => intent.specificIntent == "knownLikes").options.Count)];
+                        string newmsg2 = msg2.Replace("{hates}", question);
+                        return newmsg2;
+                    }
+                }
+                else if (answer.specificIntent == "likes")
+                {
+                    if (answer.options.Contains(question.ToLower()))
+                    {
+                        string msg2 = intent.answers.Find(intent => intent.specificIntent == "knownLikes").options[Random.Range(0, intent.answers.Find(intent => intent.specificIntent == "knownLikes").options.Count)];
+                        string newmsg2 = msg2.Replace("{unknownIfLike}", question);
+                        return newmsg2;
+                    }
                 }
             }
             string msg = intent.answers.Find(intent => intent.specificIntent == "unknownLikes").options[Random.Range(0, intent.answers.Find(intent => intent.specificIntent == "knownLikes").options.Count)];

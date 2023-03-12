@@ -21,7 +21,6 @@ public class AIManager : MonoBehaviour
     {
         string[] creatorNames = { "Demian", "Demi", "mi creador" };
         StringBuilder sb = new StringBuilder(message);
-
         sb.Replace("{videogameLikesDemi}", getCorrectAnswers.ReturnCorrectAnswer("demian", "videogameLikes"));
         sb.Replace("{likesDemi}", getCorrectAnswers.ReturnCorrectAnswer("demian", "likes"));
         sb.Replace("{videogameLikesAlpha}", getCorrectAnswers.ReturnCorrectAnswer("alpha", "videogameLikes"));

@@ -12,7 +12,8 @@ public class AnswersCases : MonoBehaviour
 
     public string GetAnswer(Word currentWord, int wordCount)
     {
-        if(currentWord.wordTypes.Contains("insult")){
+        if (currentWord.wordTypes.Contains("insult"))
+        {
             Debug.Log("insulto");
             currentWordOrder += 1;
             latestWord = "NoSense";
@@ -109,14 +110,10 @@ public class AnswersCases : MonoBehaviour
                 if (currentWord.wordTypes.Contains("question"))
                 {
                     latestWord = "question";
-                    string[] questionAboutLikes = { "gusta", "gusto" };
-                    foreach (var question in questionAboutLikes)
+                    if (currentWord.answerType == "gustos")
                     {
-                        if (question == currentWord.word)
-                        {
-                            latestWord = "likesQuestion";
-                            return "ignore";
-                        }
+                        latestWord = "likesQuestion";
+                        return "ignore";
                     }
                     return $"question:{currentWord.answerType}:{currentWord.word}";
                 }
@@ -189,13 +186,17 @@ public class AnswersCases : MonoBehaviour
         }
         if (currentWordOrder > 1)
         {
-            if(currentWordOrder == 2){
-                if(currentWord.wordTypes[0] == "unknown"){
+            Debug.Log(latestWord);
+            if (currentWordOrder == 2 && latestWord == "")
+            {
+                if (currentWord.wordTypes[0] == "unknown")
+                {
                     latestWord = "NoSense";
                     return "ignore";
                 }
             }
-            if(latestWord == "NoSense"){
+            if (latestWord == "NoSense")
+            {
                 return "ignore";
             }
             currentWordOrder += 1;
@@ -220,14 +221,10 @@ public class AnswersCases : MonoBehaviour
                 {
                     if (extraData == "creator")
                     {
-                        string[] questionAboutLikes = { "gusta", "gusto" };
-                        foreach (var question in questionAboutLikes)
+                        if (currentWord.answerType == "gustos")
                         {
-                            if (question == currentWord.word)
-                            {
-                                latestWord = "likesQuestion";
-                                return "ignore";
-                            }
+                            latestWord = "likesQuestion";
+                            return "ignore";
                         }
                         return $"secondpersonquestion:questions:alpha";
                     }
@@ -288,6 +285,14 @@ public class AnswersCases : MonoBehaviour
                     latestWord = "reference";
                     extraData = "likesQuestion";
                     return "ignore";
+                }
+                if (StringCompare("Demian", currentWord.word) > 56)
+                {
+                    return $"secondpersonquestion:likesQuestions:demian";
+                }
+                if (StringCompare("Alpha", currentWord.word) > 56)
+                {
+                    return $"secondpersonquestion:likesQuestions:alpha";
                 }
                 if (extraData == "creator")
                 {

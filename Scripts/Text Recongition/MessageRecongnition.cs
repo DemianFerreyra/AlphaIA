@@ -60,6 +60,7 @@ public class MessageRecongnition : MonoBehaviour
             else
             {
                 string[] responseData = response.Split(":");
+                Debug.Log($"0:{responseData[0]} 1:{responseData[1]} 2:{responseData[2]}");
                 if (responseData[0] == "secondpersonquestion")
                 {
                     if (responseData[1] == "unknown")
@@ -108,13 +109,9 @@ public class MessageRecongnition : MonoBehaviour
                         isForCreator = true;
                         fullWord += $"{responseData[2]}";
                     }
-                    else if (responseData[1] == "personalState")
+                    else if (responseData[1] == "personalState" || responseData[1] == "actualAction")
                     {
                         responsesToGive.Add(getCorrectAnswers.ReturnAnswerToQuestion(responseData[2], responseData[1], "alpha"));
-                    }
-                    else
-                    {
-                        responsesToGive.Add(getCorrectAnswers.ReturnCorrectAnswer(responseData[0], responseData[1]));
                     }
                 }
                 else if (responseData[0] == "unknown")

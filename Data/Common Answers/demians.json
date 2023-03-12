@@ -36,7 +36,43 @@
                 "warThunder",
                 "phasmophobia",
                 "el helado de vainilla",
-                "su gato"
+                "su gato",
+                "la aviacion",
+                "las aviones",
+                "los alfajores",
+                "sus seguidores de twitch"
+            ]
+        },
+        {
+            "specificIntent": "hates",
+            "keys": [
+                "hates"
+            ],
+            "options": [
+                "el tomate",
+                "PHP",
+                "salir de su casa",
+                "a la gente pelada (en realidad le da miedo verse asi en el futuro)",
+                "que la gente le diga que hacer",
+                "el helado granizado",
+                "el helado con granizado. Le hace mal a su sensibilidad dental jaja ja"
+            ]
+        },
+        {
+            "specificIntent": "knownHates",
+            "keys": [
+                "knownHates"
+            ],
+            "options": [
+                "se que a {creator} no le gusta {hates} o no",
+                "si no me equivoco, no le gusta {hates}",
+                "no le gusta {hates}",
+                "odia {hates}",
+                "{hates}",
+                "detesta {hates}",
+                "detesta {hates} con el 100% de su cuerpo",
+                "detesta {hates} con el 100% de su cuerpo y alma",
+                "hasta lo que se, {creator} odia {hates}"
             ]
         },
         {
