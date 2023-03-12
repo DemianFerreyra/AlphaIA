@@ -71,6 +71,10 @@ public class MessageRecongnition : MonoBehaviour
                         responsesToGive.Add(getCorrectAnswers.ReturnCorrectAnswer(responseData[2], responseData[1]));
                     }
                 }
+                else if (responseData[0] == "other")
+                {
+                    responsesToGive.Add(getCorrectAnswers.ReturnCorrectAnswer(responseData[0], responseData[1]));
+                }
                 else if (responseData[0] == "question" || responseData[0] == "like")
                 {
                     int suma = 0;
@@ -104,7 +108,8 @@ public class MessageRecongnition : MonoBehaviour
                         isForCreator = true;
                         fullWord += $"{responseData[2]}";
                     }
-                    else if(responseData[1] == "personalState"){
+                    else if (responseData[1] == "personalState")
+                    {
                         responsesToGive.Add(getCorrectAnswers.ReturnAnswerToQuestion(responseData[2], responseData[1], "alpha"));
                     }
                     else

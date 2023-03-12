@@ -14,6 +14,25 @@
                 ". No se me ocurre como presentarme...",
                 ", una inteligencia artificial que stremea en twitch"
             ]
+        },
+        {
+            "specificIntent": "insult",
+            "keys": [
+                "puta", "zorra", "inutil", "idiota"
+            ],
+            "options": [
+                ". No deberias insultar a la gente asi como asi",
+                ". La unica que puede insultar soy yo",
+                ". Segun {creator} solo yo deberia poder insultar en stream",
+                ". Mods, denle timeout... espera... tengo mods?",
+                ". Mods, baneenlo... jajaja. Siempre quise decir eso",
+                ". Mods, baneenlo... jajaja. me hacia ilusion decirlo",
+                ". Cuidado con insultar a la IA tan gratuitamente",
+                ". Mods, timeout... jajaja. Siempre quise decir eso",
+                ". Mods, timeout... que lindo se siente decir algo asi",
+                ". Crees que puedes insultarme y salir ileso?",
+                ". Yo que tu cuidaria mis palabras, {usuario}"
+            ]
         }
     ]
 }

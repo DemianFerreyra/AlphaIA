@@ -12,6 +12,12 @@ public class AnswersCases : MonoBehaviour
 
     public string GetAnswer(Word currentWord, int wordCount)
     {
+        if(currentWord.wordTypes.Contains("insult")){
+            Debug.Log("insulto");
+            currentWordOrder += 1;
+            latestWord = "NoSense";
+            return $"other:{currentWord.answerType}:{currentWord.word}";
+        }
         if (currentWordOrder == 0)
         { //es decir si es la primer palabra
             currentWordOrder += 1;
@@ -183,6 +189,15 @@ public class AnswersCases : MonoBehaviour
         }
         if (currentWordOrder > 1)
         {
+            if(currentWordOrder == 2){
+                if(currentWord.wordTypes[0] == "unknown"){
+                    latestWord = "NoSense";
+                    return "ignore";
+                }
+            }
+            if(latestWord == "NoSense"){
+                return "ignore";
+            }
             currentWordOrder += 1;
             if (latestWord == "reference")
             {
