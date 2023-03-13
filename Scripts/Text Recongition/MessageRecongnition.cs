@@ -7,7 +7,7 @@ public class MessageRecongnition : MonoBehaviour
 {
     public AIManager Alpha;
     public DatabaseManagment databaseManager;
-    public AnswersCases answerManager;
+    public AnswersManager answerMG;
     public GetCorrectAnswers getCorrectAnswers;
     public int leftToAnswer = 0;
     public List<string> intents = new List<string>();
@@ -52,96 +52,94 @@ public class MessageRecongnition : MonoBehaviour
         string fullWord = "";
         bool isForCreator = false;
         string extraData = "";
-        foreach (var response in responses)
-        {
-            if (response == "ignore")
-            {
-                //Debug.Log("ignore");
-            }
-            else
-            {
-                string[] responseData = response.Split(":");
-                if(responseData[2] == "hatesQuestion"){
-                    extraData = "hatesQuestion";
-                }
-                else if(responseData[2] == "likesQuestion"){
-                    extraData = "likesQuestion";
-                }
-                if (responseData[0] == "secondpersonquestion")
-                {
-                    if (responseData[1] == "unknown")
-                    {
-                        fullWord += $"{responseData[2]}";
-                    }
-                    else if (responseData[2] == "demian" || responseData[2] == "alpha")
-                    {
-                        responsesToGive.Add(getCorrectAnswers.ReturnCorrectAnswer(responseData[2], responseData[1]));
-                    }
-                }
-                else if (responseData[0] == "other")
-                {
-                    responsesToGive.Add(getCorrectAnswers.ReturnCorrectAnswer(responseData[0], responseData[1]));
-                }
-                else if (responseData[0] == "question" || responseData[0] == "like")
-                {
-                    int suma = 0;
-                    foreach (var character in responseData[2])
-                    {
-                        suma += System.Convert.ToInt32(character);
-                    }
-                    if (responseData[1] == "unknown")
-                    {
-                        if (databaseManager.dictionary.codes[suma].likes.Find(_like => _like.name == responseData[2]) != null)
-                        {
-                            string msg = "";
-                            if (databaseManager.dictionary.codes[suma].likes.Find(_like => _like.name == responseData[2]).likesOrNot == true)
-                            {
-                                msg = getCorrectAnswers.ReturnCorrectAnswer("question", "gustosconocidospositivo");
-                            }
-                            else
-                            {
-                                msg = getCorrectAnswers.ReturnCorrectAnswer("question", "gustosconocidosnegativo");
-                            }
-                            string newmsg = msg.Replace("#", responseData[2].ToLower());
-                            responsesToGive.Add(newmsg);
-                        }
-                        else
-                        {
-                            fullWord += $"{responseData[2]}";
-                        }
-                    }
-                    else if (responseData[1] == "creator")
-                    {
-                        isForCreator = true;
-                        fullWord += $"{responseData[2]}";
-                    }
-                    else if (responseData[1] == "personalState" || responseData[1] == "actualAction")
-                    {
-                        responsesToGive.Add(getCorrectAnswers.ReturnAnswerToQuestion(responseData[2], responseData[1], "alpha"));
-                    }
-                }
-                else if (responseData[0] == "unknown")
-                {
-                    string msg = "..." + getCorrectAnswers.ReturnCorrectAnswer(responseData[0], responseData[1]);
-                    string newmsg = msg.Replace("#", responseData[2]);
-                    responsesToGive.Add(newmsg);
-                }
-                else
-                {
-                    responsesToGive.Add(getCorrectAnswers.ReturnCorrectAnswer(responseData[0], responseData[1]));
-                }
-            }
-        }
-        if (fullWord.Length > 1)
-        {
-            responsesToGive.Add("await");
-            leftToAnswer += 1;
-            StartCoroutine(getCorrectAnswers.SearchUnknown(fullWord, isForCreator, extraData));
-        }
-        answerManager.latestWord = "";
-        answerManager.latestWordType = "";
-        answerManager.extraData = "";
-        answerManager.currentWordOrder = 0;
+        // foreach (var response in responses)
+        // {
+        //     if (response == "ignore")
+        //     {
+        //         //Debug.Log("ignore");
+        //     }
+        //     else
+        //     {
+        //         string[] responseData = response.Split(":");
+        //         if (responseData[2] == "hatesQuestion")
+        //         {
+        //             extraData = "hatesQuestion";
+        //         }
+        //         else if (responseData[2] == "likesQuestion")
+        //         {
+        //             extraData = "likesQuestion";
+        //         }
+        //         if (responseData[0] == "secondpersonquestion")
+        //         {
+        //             if (responseData[1] == "unknown")
+        //             {
+        //                 fullWord += $"{responseData[2]}";
+        //             }
+        //             else if (responseData[2] == "demian" || responseData[2] == "alpha")
+        //             {
+        //                 responsesToGive.Add(getCorrectAnswers.ReturnCorrectAnswer(responseData[2], responseData[1]));
+        //             }
+        //         }
+        //         else if (responseData[0] == "other")
+        //         {
+        //             responsesToGive.Add(getCorrectAnswers.ReturnCorrectAnswer(responseData[0], responseData[1]));
+        //         }
+        //         else if (responseData[0] == "question" || responseData[0] == "like")
+        //         {
+        //             int suma = 0;
+        //             foreach (var character in responseData[2])
+        //             {
+        //                 suma += System.Convert.ToInt32(character);
+        //             }
+        //             if (responseData[1] == "unknown")
+        //             {
+        //                 if (databaseManager.dictionary.codes[suma].likes.Find(_like => _like.name == responseData[2]) != null)
+        //                 {
+        //                     string msg = "";
+        //                     if (databaseManager.dictionary.codes[suma].likes.Find(_like => _like.name == responseData[2]).likesOrNot == true)
+        //                     {
+        //                         msg = getCorrectAnswers.ReturnCorrectAnswer("question", "gustosconocidospositivo");
+        //                     }
+        //                     else
+        //                     {
+        //                         msg = getCorrectAnswers.ReturnCorrectAnswer("question", "gustosconocidosnegativo");
+        //                     }
+        //                     string newmsg = msg.Replace("#", responseData[2].ToLower());
+        //                     responsesToGive.Add(newmsg);
+        //                 }
+        //                 else
+        //                 {
+        //                     fullWord += $"{responseData[2]}";
+        //                 }
+        //             }
+        //             else if (responseData[1] == "creator")
+        //             {
+        //                 isForCreator = true;
+        //                 fullWord += $"{responseData[2]}";
+        //             }
+        //             else if (responseData[1] == "personalState" || responseData[1] == "actualAction")
+        //             {
+        //                 responsesToGive.Add(getCorrectAnswers.ReturnAnswerToQuestion(responseData[2], responseData[1], "alpha"));
+        //             }
+        //         }
+        //         else if (responseData[0] == "unknown")
+        //         {
+        //             string msg = "..." + getCorrectAnswers.ReturnCorrectAnswer(responseData[0], responseData[1]);
+        //             string newmsg = msg.Replace("#", responseData[2]);
+        //             responsesToGive.Add(newmsg);
+        //         }
+        //         else
+        //         {
+        //             responsesToGive.Add(getCorrectAnswers.ReturnCorrectAnswer(responseData[0], responseData[1]));
+        //         }
+        //     }
+        // }
+        // if (fullWord.Length > 1)
+        // {
+        //     responsesToGive.Add("await");
+        //     leftToAnswer += 1;
+        //     StartCoroutine(getCorrectAnswers.SearchUnknown(fullWord, isForCreator, extraData));
+        // }
     }
     private string ReadWord(string word, int wordCount)
     {
@@ -155,7 +153,18 @@ public class MessageRecongnition : MonoBehaviour
         if (databaseManager.dictionary.codes[suma].words.Find(_word => _word.word == word) != null)
         {
             Word currentWord = databaseManager.dictionary.codes[suma].words.Find(_word => _word.word == word);
-            string answer = answerManager.GetAnswer(currentWord, wordCount);
+            //string answer = answerManager.GetAnswer(currentWord, wordCount);
+            string answer = answerMG.GetAnswerStructure(currentWord, wordCount);
+            if(answer == "repeat"){
+                answerMG.lastWordTypes.Clear();
+                answerMG.newPhrase = true;
+                answerMG.GetAnswerStructure(currentWord, wordCount);
+            }
+            if(answerMG.order == wordCount){
+                answerMG.order = 0;
+                answerMG.lastWordTypes.Clear();
+                answerMG.newPhrase = true;
+            }
             return answer;
         }
         else
@@ -164,7 +173,18 @@ public class MessageRecongnition : MonoBehaviour
             unknown[0] = "unknown";
             databaseManager.AddNewWordsToDiscover(word, suma);
 
-            string answer = answerManager.GetAnswer(new Word(word, unknown, "unknown"), wordCount);
+            //string answer = answerManager.GetAnswer(new Word(word, unknown, "unknown"), wordCount);
+            string answer = answerMG.GetAnswerStructure(new Word(word, unknown, "unknown"), wordCount);
+            if(answer == "repeat"){
+                answerMG.lastWordTypes.Clear();
+                answerMG.newPhrase = true;
+                answerMG.GetAnswerStructure(new Word(word, unknown, "unknown"), wordCount);
+            }
+            if(answerMG.order == wordCount){
+                answerMG.order = 0;
+                answerMG.lastWordTypes.Clear();
+                answerMG.newPhrase = true;
+            }
             return answer;
         }
     }
