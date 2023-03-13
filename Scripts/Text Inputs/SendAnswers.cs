@@ -16,11 +16,11 @@ public class SendAnswers : MonoBehaviour
         string[] _keys = keys.text.Split(",");
         foreach (var _answer in _answers)
         {
-            databaseManager.answers.Find(answer => answer.intent == intent.text).answers.Find(answer => answer.specificIntent == specificIntent.text).options.Add(_answer);
+            databaseManager.answers.Find(answer => answer.intent.ToLower() == intent.text.ToLower()).answers.Find(answer => answer.specificIntent.ToLower() == specificIntent.text.ToLower()).options.Add(_answer.ToLower());
         }
         foreach (var _key in _keys)
         {
-            databaseManager.answers.Find(answer => answer.intent == intent.text).answers.Find(answer => answer.specificIntent == specificIntent.text).keys.Add(_key);
+            databaseManager.answers.Find(answer => answer.intent.ToLower() == intent.text.ToLower()).answers.Find(answer => answer.specificIntent.ToLower() == specificIntent.text.ToLower()).keys.Add(_key.ToLower());
         }
         specificIntent.text = "";
         keys.text = "";

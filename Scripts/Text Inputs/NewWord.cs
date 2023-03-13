@@ -14,12 +14,12 @@ public class NewWord : MonoBehaviour
     public void DiscoverWord()
     {
         int suma = 0;
-        foreach (var character in word.text)
+        foreach (var character in word.text.ToLower())
         {
             suma += System.Convert.ToInt32(character);
         }
         string[] types = wordTypes.text.Split(",");
-        databaseManager.dictionary.codes[suma % 4000].words.Add(new Word(word.text, types, answerType.text));
+        databaseManager.dictionary.codes[suma % 4000].words.Add(new Word(word.text.ToLower(), types, answerType.text.ToLower()));
         word.text = "";
         wordTypes.text = "";
         answerType.text = "";
@@ -27,11 +27,11 @@ public class NewWord : MonoBehaviour
     public void NewLike()
     {
         int suma = 0;
-        foreach (var character in word.text)
+        foreach (var character in word.text.ToLower())
         {
             suma += System.Convert.ToInt32(character);
         }
-        databaseManager.dictionary.codes[suma % 4000].likes.Add(new Like(word.text, alphaLikes.isOn));
+        databaseManager.dictionary.codes[suma % 4000].likes.Add(new Like(word.text.ToLower(), alphaLikes.isOn));
         word.text = "";
         alphaLikes.isOn = true;
     }

@@ -47,7 +47,7 @@ public class MessageRecongnition : MonoBehaviour
         List<string> responses = new List<string>();
         foreach (var word in _words)
         {
-            responses.Add(ReadWord(word, _words.Length));
+            responses.Add(ReadWord(word.ToLower(), _words.Length));
         }
         // string fullWord = "";
         // bool isForCreator = false;

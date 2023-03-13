@@ -16,34 +16,47 @@ public class AnswersManager : MonoBehaviour
         order++;
         if (newPhrase == true)
         {
-            Debug.Log(JsonUtility.ToJson(currentWord,true));
+            Debug.Log(JsonUtility.ToJson(currentWord, true));
             newPhrase = false;
             AddLastWord(currentWord);
+            if (currentWord.wordTypes.Contains("jerga"))
+            {
+                answers.Add($"jerga:{currentWord.word}");
+                return "end";
+            }
             if (currentWord.wordTypes.Contains("greeting"))
             {
                 answers.Add("{greetingRandom}");
-                return "{greetingRandom}";
-            }
-            if (currentWord.wordTypes.Contains("action"))
-            {
-                if (currentWord.wordTypes.Contains("referenceAlpha"))
-                {
-                    lastWordTypes.Add("actionAlpha");
-                    answers.Add("alpha:action");
-                }
                 return "ignore";
             }
             if (currentWord.wordTypes.Contains("question"))
             {
                 if (currentWord.wordTypes.Contains("placeQuestion"))
                 {
+                    lastWordTypes.Clear();
                     answers.Add("placeQuestion");
                     lastWordTypes.Add("placeQuestion");
+                    return "ignore";
                 }
                 if (currentWord.wordTypes.Contains("likesQuestion"))
                 {
+                    lastWordTypes.Clear();
                     answers.Add("likesQuestion");
                     lastWordTypes.Add("likesQuestion");
+                    return "ignore";
+                }
+                lastWordTypes.Clear();
+                answers.Add("needsToAnswer");
+                lastWordTypes.Add("needsAnswer");
+                return "ignore";
+            }
+            if (currentWord.wordTypes.Contains("action"))
+            {
+                if (currentWord.wordTypes.Contains("referenceAlpha"))
+                {
+                    lastWordTypes.Clear();
+                    lastWordTypes.Add("actionAlpha");
+                    answers.Add("alpha:action");
                 }
                 return "ignore";
             }
@@ -108,12 +121,13 @@ public class AnswersManager : MonoBehaviour
                 {
                     lastWordTypes.Clear();
                     lastWordTypes.Add("needsAnswer");
-                    answers.Add("needstoAnswer");
+                    answers.Add("needsToAnswer");
                     return "ignore";
                 }
             }
             if (lastWordTypes.Contains("needsAnswer"))
             {
+                Debug.Log("needsAnswer" + JsonUtility.ToJson(currentWord, true));
                 if (currentWord.wordTypes.Contains("affirmation") && currentWord.answerType.Length > 1)
                 {
                     newPhrase = true;
@@ -139,6 +153,12 @@ public class AnswersManager : MonoBehaviour
                     lastWordTypes.Clear();
                     lastWordTypes.Add("mayNeedComplement");
                     answers[answers.Count - 1] = answers[answers.Count - 1] + $":{currentWord.answerType}";
+                    return "ignore";
+                }
+                if (currentWord.wordTypes.Contains("unknown"))
+                {
+                    lastWordTypes.Clear();
+                    answers[answers.Count - 1] = answers[answers.Count - 1] + $":{currentWord.word}";
                     return "ignore";
                 }
             }
