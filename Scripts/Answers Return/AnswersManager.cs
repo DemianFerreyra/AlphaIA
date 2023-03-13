@@ -12,9 +12,11 @@ public class AnswersManager : MonoBehaviour
 
     public string GetAnswerStructure(Word currentWord, int wordCount)
     {
+
         order++;
         if (newPhrase == true)
         {
+            Debug.Log(JsonUtility.ToJson(currentWord,true));
             newPhrase = false;
             AddLastWord(currentWord);
             if (currentWord.wordTypes.Contains("greeting"))
@@ -38,9 +40,14 @@ public class AnswersManager : MonoBehaviour
                     answers.Add("placeQuestion");
                     lastWordTypes.Add("placeQuestion");
                 }
+                if (currentWord.wordTypes.Contains("likesQuestion"))
+                {
+                    answers.Add("likesQuestion");
+                    lastWordTypes.Add("likesQuestion");
+                }
                 return "ignore";
             }
-            return "ignore";
+            return "end";
         }
         else  //--------------------------------------------//
         {
@@ -60,13 +67,23 @@ public class AnswersManager : MonoBehaviour
                         return "end";
                     }
                 }
-                order --;
+                order--;
                 return "repeat";
             }
             if (lastWordTypes.Contains("placeQuestion"))
             {
                 if (currentWord.wordTypes.Contains("place"))
                 {
+                    answers[answers.Count - 1] = answers[answers.Count - 1] + $":{currentWord.word}";
+                }
+                return "ignore";
+            }
+            if (lastWordTypes.Contains("likesQuestion"))
+            {
+                if (currentWord.wordTypes.Contains("unknown"))
+                {
+                    lastWordTypes.Clear();
+                    lastWordTypes.Add("mayContinueWord");
                     answers[answers.Count - 1] = answers[answers.Count - 1] + $":{currentWord.word}";
                 }
                 return "ignore";
@@ -92,7 +109,7 @@ public class AnswersManager : MonoBehaviour
                     lastWordTypes.Clear();
                     lastWordTypes.Add("needsAnswer");
                     answers.Add("needstoAnswer");
-                    Debug.Log("pregunta");
+                    return "ignore";
                 }
             }
             if (lastWordTypes.Contains("needsAnswer"))
@@ -103,7 +120,7 @@ public class AnswersManager : MonoBehaviour
                     lastWordTypes.Clear();
                     answers[answers.Count - 1] = answers[answers.Count - 1] + $":{currentWord.answerType}";
                 }
-                if (currentWord.wordTypes.Contains("question") && currentWord.answerType.Length > 1)
+                else if (currentWord.wordTypes.Contains("question") && currentWord.answerType.Length > 1)
                 {
                     newPhrase = true;
                     lastWordTypes.Clear();
@@ -134,7 +151,22 @@ public class AnswersManager : MonoBehaviour
                 if (currentWord.wordTypes.Contains("unknown"))
                 {
                     lastWordTypes.Clear();
+                    lastWordTypes.Add("mayContinueWord");
                     answers[answers.Count - 1] = answers[answers.Count - 1] + $":{currentWord.word}";
+                    return "ignore";
+                }
+            }
+            if (lastWordTypes.Contains("mayContinueWord"))
+            {
+                if (currentWord.wordTypes.Contains("conjunction"))
+                {
+                    return "ignore";
+                }
+                if (currentWord.wordTypes.Contains("unknown"))
+                {
+                    lastWordTypes.Clear();
+                    lastWordTypes.Add("mayContinueWord");
+                    answers[answers.Count - 1] = answers[answers.Count - 1] + $" {currentWord.word}";
                     return "ignore";
                 }
             }

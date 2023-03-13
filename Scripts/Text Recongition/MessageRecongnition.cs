@@ -49,9 +49,9 @@ public class MessageRecongnition : MonoBehaviour
         {
             responses.Add(ReadWord(word, _words.Length));
         }
-        string fullWord = "";
-        bool isForCreator = false;
-        string extraData = "";
+        // string fullWord = "";
+        // bool isForCreator = false;
+        // string extraData = "";
         // foreach (var response in responses)
         // {
         //     if (response == "ignore")
@@ -155,12 +155,19 @@ public class MessageRecongnition : MonoBehaviour
             Word currentWord = databaseManager.dictionary.codes[suma].words.Find(_word => _word.word == word);
             //string answer = answerManager.GetAnswer(currentWord, wordCount);
             string answer = answerMG.GetAnswerStructure(currentWord, wordCount);
-            if(answer == "repeat"){
+            if (answer == "repeat")
+            {
                 answerMG.lastWordTypes.Clear();
                 answerMG.newPhrase = true;
                 answerMG.GetAnswerStructure(currentWord, wordCount);
             }
-            if(answerMG.order == wordCount){
+            if (answer == "end")
+            {
+                answerMG.lastWordTypes.Clear();
+                answerMG.newPhrase = true;
+            }
+            if (answerMG.order == wordCount)
+            {
                 answerMG.order = 0;
                 answerMG.lastWordTypes.Clear();
                 answerMG.newPhrase = true;
@@ -175,12 +182,19 @@ public class MessageRecongnition : MonoBehaviour
 
             //string answer = answerManager.GetAnswer(new Word(word, unknown, "unknown"), wordCount);
             string answer = answerMG.GetAnswerStructure(new Word(word, unknown, "unknown"), wordCount);
-            if(answer == "repeat"){
+            if (answer == "repeat")
+            {
                 answerMG.lastWordTypes.Clear();
                 answerMG.newPhrase = true;
                 answerMG.GetAnswerStructure(new Word(word, unknown, "unknown"), wordCount);
             }
-            if(answerMG.order == wordCount){
+            if (answer == "end")
+            {
+                answerMG.lastWordTypes.Clear();
+                answerMG.newPhrase = true;
+            }
+            if (answerMG.order == wordCount)
+            {
                 answerMG.order = 0;
                 answerMG.lastWordTypes.Clear();
                 answerMG.newPhrase = true;
