@@ -12,7 +12,7 @@ public class AnswersManager : MonoBehaviour
 
     public string GetAnswerStructure(Word currentWord, int wordCount)
     {
-
+        Debug.Log("palabra actual = " + JsonUtility.ToJson(currentWord,true));
         order++;
         if (newPhrase == true)
         {
@@ -60,6 +60,11 @@ public class AnswersManager : MonoBehaviour
                 }
                 return "ignore";
             }
+            if (currentWord.wordTypes.Contains("obligation"))
+            {
+                answers.Add($"obligation");
+                return "ignore";
+            }
             return "end";
         }
         else  //--------------------------------------------//
@@ -93,13 +98,20 @@ public class AnswersManager : MonoBehaviour
             }
             if (lastWordTypes.Contains("likesQuestion"))
             {
+                if (currentWord.wordTypes.Contains("reference"))
+                {
+                    lastWordTypes.Clear();
+                    lastWordTypes.Add("referenceNeedsContinue");
+                    return "ignore";
+                }
                 if (currentWord.wordTypes.Contains("unknown"))
                 {
                     lastWordTypes.Clear();
                     lastWordTypes.Add("mayContinueWord");
                     answers[answers.Count - 1] = answers[answers.Count - 1] + $":{currentWord.word}";
+                    return "ignore";
                 }
-                return "ignore";
+                return "end";
             }
             if (lastWordTypes.Contains("question"))
             {
@@ -125,20 +137,42 @@ public class AnswersManager : MonoBehaviour
                     return "ignore";
                 }
             }
+            if (lastWordTypes.Contains("referenceNeedsContinue"))
+            {
+                if (StringCompare(currentWord.word, "Demian") > 40)
+                {
+                    answers[answers.Count - 1] = "Demian:" + answers[answers.Count - 1];
+                }
+                return "end";
+            }
             if (lastWordTypes.Contains("needsAnswer"))
             {
-                Debug.Log("needsAnswer" + JsonUtility.ToJson(currentWord, true));
+                if (currentWord.wordTypes.Contains("reference"))
+                {
+                    lastWordTypes.Clear();
+                    lastWordTypes.Add("referenceNeedContinue");
+                    return "ignore";
+                }
+                if (currentWord.wordTypes.Contains("likesQuestion"))
+                {
+                    lastWordTypes.Clear();
+                    lastWordTypes.Add("likesQuestion");
+                    answers[answers.Count - 1] = answers[answers.Count - 1] + $":{currentWord.answerType}";
+                    return "ignore";
+                }
                 if (currentWord.wordTypes.Contains("affirmation") && currentWord.answerType.Length > 1)
                 {
                     newPhrase = true;
                     lastWordTypes.Clear();
                     answers[answers.Count - 1] = answers[answers.Count - 1] + $":{currentWord.answerType}";
+                    return "ignore";
                 }
-                else if (currentWord.wordTypes.Contains("question") && currentWord.answerType.Length > 1)
+                if (currentWord.wordTypes.Contains("question") && currentWord.answerType.Length > 1)
                 {
                     newPhrase = true;
                     lastWordTypes.Clear();
                     answers[answers.Count - 1] = answers[answers.Count - 1] + $":{currentWord.answerType}";
+                    return "ignore";
                 }
                 else
                 {
@@ -159,6 +193,21 @@ public class AnswersManager : MonoBehaviour
                 {
                     lastWordTypes.Clear();
                     answers[answers.Count - 1] = answers[answers.Count - 1] + $":{currentWord.word}";
+                    return "ignore";
+                }
+            }
+            if (lastWordTypes.Contains("obligation"))
+            {
+                if (currentWord.wordTypes.Contains("affirmation") || currentWord.wordTypes.Contains("negation"))
+                {
+                    answers[answers.Count - 1] = answers[answers.Count - 1] + $":{currentWord.answerType}";
+                    return "ignore";
+                }
+                if (currentWord.wordTypes.Contains("action"))
+                {
+                    lastWordTypes.Clear();
+                    lastWordTypes.Add("mayNeedComplement");
+                    answers[answers.Count - 1] = answers[answers.Count - 1] + $":{currentWord.answerType}";
                     return "ignore";
                 }
             }

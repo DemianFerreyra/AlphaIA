@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System;
 
 public class MessageRecongnition : MonoBehaviour
 {
@@ -47,7 +48,15 @@ public class MessageRecongnition : MonoBehaviour
         List<string> responses = new List<string>();
         foreach (var word in _words)
         {
-            responses.Add(ReadWord(word.ToLower(), _words.Length));
+            string _word = "";
+            foreach (char character in word)
+            {
+                if (char.IsLetter(character) == true)
+                {
+                    _word += character;
+                }
+            }
+            responses.Add(ReadWord(_word.ToLower(), _words.Length));
         }
         // string fullWord = "";
         // bool isForCreator = false;
