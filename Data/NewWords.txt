@@ -649,3 +649,14 @@ word:alpha, hash:518
 word:andamos, hash:739
 word:alpha, hash:518
 word:preciosa, hash:854
+word:alpha, hash:518
+word:alpha, hash:518
+word:alpha, hash:518
+word:alpha, hash:518
+word:pendejo, hash:741
+word:pendejo, hash:741
+word:alpha, hash:518
+word:alpha, hash:518
+word:alpha, hash:518
+word:alpha, hash:518
+word:alpha, hash:518

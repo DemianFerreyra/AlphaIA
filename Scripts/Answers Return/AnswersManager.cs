@@ -12,11 +12,9 @@ public class AnswersManager : MonoBehaviour
 
     public string GetAnswerStructure(Word currentWord, int wordCount)
     {
-        Debug.Log("palabra actual = " + JsonUtility.ToJson(currentWord,true));
         order++;
         if (newPhrase == true)
         {
-            Debug.Log(JsonUtility.ToJson(currentWord, true));
             newPhrase = false;
             AddLastWord(currentWord);
             if (currentWord.wordTypes.Contains("jerga"))
@@ -26,7 +24,13 @@ public class AnswersManager : MonoBehaviour
             }
             if (currentWord.wordTypes.Contains("greeting"))
             {
-                answers.Add("{greetingRandom}");
+                if (currentWord.answerType == "despedidas")
+                {
+                    answers.Add("greeting:despedidas");
+                }
+                else{
+                    answers.Add("greeting:saludos");
+                }
                 return "ignore";
             }
             if (currentWord.wordTypes.Contains("question"))
@@ -76,12 +80,12 @@ public class AnswersManager : MonoBehaviour
                     newPhrase = true;
                     if (StringCompare(currentWord.word, "AlphaIA") > 54)
                     {
-                        answers[answers.Count - 1] = answers[answers.Count - 1] + " {usuario}";
+                        answers[answers.Count - 1] = answers[answers.Count - 1] + ":user";
                         return "end";
                     }
                     else
                     {
-                        answers[answers.Count - 1] = answers[answers.Count - 1] + $" no conozco a {currentWord.word} del que estas hablando";
+                        answers[answers.Count - 1] = answers[answers.Count - 1] + $":unknown";
                         return "end";
                     }
                 }

@@ -10,9 +10,10 @@
                 "buenas"
             ],
             "options": [
-                "hola,",
-                "holiii,",
-                "bienvenido,"
+                "hola",
+                "buenas",
+                "holiii",
+                "bienvenido"
             ]
         },
         {
@@ -20,24 +21,50 @@
             "keys": [
                 "adios",
                 "hasta pronto",
-                "hasta luego"
+                "hasta luego",
+                "nos vemos"
             ],
             "options": [
-                "adios,",
-                "goodbye,",
-                "adiosito,",
-                "nos vemos, cuidate,"
+                "adios",
+                "hasta luego",
+                "hasta pronto",
+                "goodbye",
+                "adiosito",
+                "nos vemos"
             ]
         },
         {
-            "specificIntent": "saludoshaciami",
+            "specificIntent": "saludosHaciaUsuario",
             "keys": [],
             "options": [
                 "precioso {usuario}",
+                "precioso {usuario}, como estas?",
+                "precioso {usuario}, que tal tu dia?",
                 "querido {usuario}",
+                "querido {usuario}, como estas?",
+                "precioso {usuario}, que tal tu dia?",
                 "{usuario}. Como estas?",
                 "{usuario}. Que tal tu dia?",
                 "{usuario}. Que tal?"
+            ]
+        },
+        {
+            "specificIntent": "despedidasHaciaUsuario",
+            "keys": [],
+            "options": [
+                "precioso {usuario}",
+                "precioso {usuario}, cuidate",
+                "querido {usuario}",
+                "querido {usuario}, cuidate",
+                "{usuario}",
+                "{usuario}, cuidate"
+            ]
+        },
+        {
+            "specificIntent": "desconocido",
+            "keys": [],
+            "options": [
+                ". No se a quien te refieres"
             ]
         }
     ]

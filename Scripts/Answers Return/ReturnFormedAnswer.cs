@@ -13,16 +13,37 @@ public class ReturnFormedAnswer : MonoBehaviour
         //la estructura es algo como  ==  greetingRandom:user       (el primer texto SIEMPRE sera un archivo json al que acceder y del segundo en adelante seran datos extra)
         //se partira en base a los : con un Split y se analizara ese texto
         string[] splitedStructure = structure.Split(":");
+        string responseToAdd = "";
+        Debug.Log(splitedStructure[1]);
 
-        if (splitedStructure[0] == "greetingRandom")
+        if (splitedStructure[0] == "greeting")
         {
-            if (splitedStructure.Length > 1 && splitedStructure[1] == "user")
+            if (splitedStructure.Length > 2 && splitedStructure[2] == "user")
             {
-                responses.Add(GetRandomOption("greetings", "saludoshaciami"));
+                responseToAdd = GetRandomOption("greetings", splitedStructure[1]);
+                responseToAdd += " " + GetRandomOption("greetings", $"{splitedStructure[1]}HaciaUsuario");
+                responses.Add(responseToAdd);
             }
-            else if (splitedStructure.Length > 1 && splitedStructure[1] == "unknown")
+            else if (splitedStructure.Length > 2 && splitedStructure[2] == "unknown")
             {
-                responses.Add(GetRandomOption("greetings", "saludoshaciadesconocido"));
+                responseToAdd = GetRandomOption("greetings", splitedStructure[1]);
+                responseToAdd += " " + GetRandomOption("greetings", $"desconocido");
+                responses.Add(responseToAdd);
+            }
+            else if (splitedStructure.Length == 2)
+            {
+                float getBool = Random.Range(0, 2);
+                Debug.Log(getBool);
+                if (getBool == 0)
+                {
+                    responses.Add(GetRandomOption("greetings", splitedStructure[1]));
+                }
+                else
+                {
+                    responseToAdd = GetRandomOption("greetings", splitedStructure[1]);
+                    responseToAdd += " " + GetRandomOption("greetings", $"{splitedStructure[1]}HaciaUsuario");
+                    responses.Add(responseToAdd);
+                }
             }
         }
     }

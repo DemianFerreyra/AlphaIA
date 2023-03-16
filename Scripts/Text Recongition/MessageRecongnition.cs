@@ -40,7 +40,10 @@ public class MessageRecongnition : MonoBehaviour
             }
             ReadWord(_word.ToLower(), _words.Length);
         }
-        
+        foreach (var answer in answerMG.answers)
+        {
+            getCorrectAnswers.ReadStructure(answer);
+        }
         answerMG.answers.Clear();
     }
     private string ReadWord(string word, int wordCount)
