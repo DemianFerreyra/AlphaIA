@@ -139,14 +139,14 @@ public class GetCorrectAnswers : MonoBehaviour
                 finalResponse[1] = msg;
             }
         }
-        msgReader.leftToAnswer -= 1;
-        for (int i = 0; i < msgReader.responsesToGive.Count; i++)
-        {
-            if (msgReader.responsesToGive[i] == "await")
-            {
-                msgReader.responsesToGive[i] = finalResponse[1];
-            }
-        }
+        // msgReader.leftToAnswer -= 1;
+        // for (int i = 0; i < msgReader.responsesToGive.Count; i++)
+        // {
+        //     if (msgReader.responsesToGive[i] == "await")
+        //     {
+        //         msgReader.responsesToGive[i] = finalResponse[1];
+        //     }
+        // }
     }
 
     //uri para conseguir data mas profunda $"https://en.wikipedia.org/w/api.php?action=query&prop=extracts&format=json&exintro=&titles={unknown}"
