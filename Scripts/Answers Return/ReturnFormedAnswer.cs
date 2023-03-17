@@ -132,21 +132,51 @@ public class ReturnFormedAnswer : MonoBehaviour
             intent = JsonUtility.FromJson<Answers>(File.ReadAllText(Application.dataPath + $"/Data/Common Answers/{objective}.json"));
             if (intent != null)
             {
+                List<string> closests = new List<string>();
                 Answer extraIntent = null;
-                Debug.Log($"hola el likesOrNot actual es {likesOrNot}");
                 foreach (var answer in intent.answers)
                 {
-                    if (answer.specificIntent == "likes" && answer.options.Contains(likesOrNot))
+                    if (answer.specificIntent == "likes" || answer.specificIntent == "doesntLikes")
+                    {
+                        foreach (var option in answer.options)
+                        {
+                            if (findSimilarity(option, likesOrNot) > 0.5)
+                            {
+                                if (answer.specificIntent == "likes")
+                                {
+                                    closests.Add($"{option}:{findSimilarity(option, likesOrNot)}:likes");
+                                }
+                                else if (answer.specificIntent == "doesntLikes")
+                                {
+                                    closests.Add($"{option}:{findSimilarity(option, likesOrNot)}:doesntLikes");
+                                }
+                            }
+                        }
+                    }
+                    string topOption = "";
+                    string topLikesOrNot = "";
+                    float topValue = 0;
+                    foreach (var data in closests)
+                    {
+                        string[] split = data.Split(":");
+                        if (float.Parse(split[1]) > topValue)
+                        {
+                            topValue = float.Parse(split[1]);
+                            topOption = split[0];
+                            topLikesOrNot = split[2];
+                        }
+                    }
+                    if (topLikesOrNot == "likes")
                     {
                         extraIntent = intent.answers.Find(aws => aws.specificIntent == "likesQuestions");
-                        string answerRecovered = extraIntent.options[Random.Range(0, extraIntent.options.Count)];
-                        return answerRecovered.Replace("{likesAlpha}", likesOrNot);
+                        string finalAnswer = extraIntent.options[Random.Range(0, extraIntent.options.Count)];
+                        return finalAnswer.Replace("{likesAlpha}", topOption);
                     }
-                    else if (answer.specificIntent == "doesntLikes" && answer.options.Contains(likesOrNot))
+                    else if (topLikesOrNot == "doesntLikes")
                     {
                         extraIntent = intent.answers.Find(aws => aws.specificIntent == "doesntLikesQuestions");
-                        string answerRecovered = extraIntent.options[Random.Range(0, extraIntent.options.Count)];
-                        return answerRecovered.Replace("{doesntLikesAlpha}", likesOrNot);
+                        string finalAnswer = extraIntent.options[Random.Range(0, extraIntent.options.Count)];
+                        return finalAnswer.Replace("{doesntLikesAlpha}", topOption);
                     }
                 }
                 extraIntent = intent.answers.Find(aws => aws.specificIntent == "unknownIfLikes");
@@ -160,5 +190,55 @@ public class ReturnFormedAnswer : MonoBehaviour
             return "wow, parece que lograron romperme... no se me ocurrio una forma de responder a esa pregunta... levantare un informe a Demian para que vea que sucedio";
             throw;
         }
+    }
+
+    public static int getEditDistance(string X, string Y)
+    {
+        int m = X.Length;
+        int n = Y.Length;
+
+        int[][] T = new int[m + 1][];
+        for (int i = 0; i < m + 1; ++i)
+        {
+            T[i] = new int[n + 1];
+        }
+
+        for (int i = 1; i <= m; i++)
+        {
+            T[i][0] = i;
+        }
+        for (int j = 1; j <= n; j++)
+        {
+            T[0][j] = j;
+        }
+
+        int cost;
+        for (int i = 1; i <= m; i++)
+        {
+            for (int j = 1; j <= n; j++)
+            {
+                cost = X[i - 1] == Y[j - 1] ? 0 : 1;
+                T[i][j] = Mathf.Min(Mathf.Min(T[i - 1][j] + 1, T[i][j - 1] + 1),
+                        T[i - 1][j - 1] + cost);
+            }
+        }
+
+        return T[m][n];
+    }
+
+    public static double findSimilarity(string x, string y)
+    {
+        if (x == null || y == null)
+        {
+            return 0;
+        }
+
+        double maxLength = Mathf.Max(x.Length, y.Length);
+        if (maxLength > 0)
+        {
+            // optionally ignore case if needed
+            return (maxLength - getEditDistance(x, y)) / maxLength;
+        }
+        return 1.0;
     }
 }
