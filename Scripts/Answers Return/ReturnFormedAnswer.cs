@@ -21,7 +21,7 @@ public class ReturnFormedAnswer : MonoBehaviour
         {
             responses.Add(GetRandomOptionBasedOnKeys("jergas", splitedStructure[1]));
         }
-        if (splitedStructure[0] == "greeting")
+        else if (splitedStructure[0] == "greeting")
         {
             if (splitedStructure.Length > 2 && splitedStructure[2] == "user")
             {
@@ -50,7 +50,18 @@ public class ReturnFormedAnswer : MonoBehaviour
                 }
             }
         }
+        else if (splitedStructure[0] == "likesQuestion")
+        {
+            if (splitedStructure.Length > 1)
+            {
+                responseToAdd = GetLikesOrNot("alpha", splitedStructure[1]);
+                responses.Add(responseToAdd);
+            }
+        }
     }
+
+
+
 
     private string GetRandomOption(string fileToOpen, string specificIntent)
     {
@@ -83,7 +94,7 @@ public class ReturnFormedAnswer : MonoBehaviour
             throw;
         }
     }
-     private string GetRandomOptionBasedOnKeys(string fileToOpen, string specificKey)
+    private string GetRandomOptionBasedOnKeys(string fileToOpen, string specificKey)
     {
         try
         {
@@ -105,6 +116,42 @@ public class ReturnFormedAnswer : MonoBehaviour
                 {
                     return intent.answers[0].options[Random.Range(0, intent.answers[0].options.Count)];
                 }
+            }
+            return "wow, parece que lograron romperme... no se me ocurrio una forma de responder a esa pregunta... levantare un informe a Demian para que vea que sucedio";
+        }
+        catch (System.Exception)
+        {
+            return "wow, parece que lograron romperme... no se me ocurrio una forma de responder a esa pregunta... levantare un informe a Demian para que vea que sucedio";
+            throw;
+        }
+    }
+    private string GetLikesOrNot(string objective, string likesOrNot)
+    {
+        try
+        {
+            intent = JsonUtility.FromJson<Answers>(File.ReadAllText(Application.dataPath + $"/Data/Common Answers/{objective}.json"));
+            if (intent != null)
+            {
+                Answer extraIntent = null;
+                Debug.Log($"hola el likesOrNot actual es {likesOrNot}");
+                foreach (var answer in intent.answers)
+                {
+                    if (answer.specificIntent == "likes" && answer.options.Contains(likesOrNot))
+                    {
+                        extraIntent = intent.answers.Find(aws => aws.specificIntent == "likesQuestions");
+                        string answerRecovered = extraIntent.options[Random.Range(0, extraIntent.options.Count)];
+                        return answerRecovered.Replace("{likesAlpha}", likesOrNot);
+                    }
+                    else if (answer.specificIntent == "doesntLikes" && answer.options.Contains(likesOrNot))
+                    {
+                        extraIntent = intent.answers.Find(aws => aws.specificIntent == "doesntLikesQuestions");
+                        string answerRecovered = extraIntent.options[Random.Range(0, extraIntent.options.Count)];
+                        return answerRecovered.Replace("{doesntLikesAlpha}", likesOrNot);
+                    }
+                }
+                extraIntent = intent.answers.Find(aws => aws.specificIntent == "unknownIfLikes");
+                string unknownAnswer = extraIntent.options[Random.Range(0, extraIntent.options.Count)];
+                return unknownAnswer.Replace("{likesAlpha}", likesOrNot);
             }
             return "wow, parece que lograron romperme... no se me ocurrio una forma de responder a esa pregunta... levantare un informe a Demian para que vea que sucedio";
         }
