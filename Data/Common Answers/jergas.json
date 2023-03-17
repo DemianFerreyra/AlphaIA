@@ -1,0 +1,34 @@
+{
+    "intent": "jergas",
+    "answers": [
+        {
+            "specificIntent": "xd",
+            "keys": [
+                "xd",
+                "equisde",
+                "xdd",
+                "xddddd"
+            ],
+            "options": [
+                "xd momento",
+                "xd",
+                "xdxdxd",
+                "xddd"
+            ]
+        },
+        {
+            "specificIntent": "lol",
+            "keys": [
+                "lol",
+                "lul",
+                "omegalol",
+                "omegalul"
+            ],
+            "options": [
+                "omegaLUL",
+                "lol",
+                "lol? como el videojuego?"
+            ]
+        }
+    ]
+}
