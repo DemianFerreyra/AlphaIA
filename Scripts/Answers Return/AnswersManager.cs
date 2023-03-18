@@ -17,6 +17,11 @@ public class AnswersManager : MonoBehaviour
         {
             newPhrase = false;
             AddLastWord(currentWord);
+            if (StringCompare("Demian", currentWord.word) > 60)
+            {
+                answers.Add("demian");
+                return "ignore";
+            }
             if (currentWord.wordTypes.Contains("jerga"))
             {
                 answers.Add($"jerga:{currentWord.word}");
@@ -28,7 +33,8 @@ public class AnswersManager : MonoBehaviour
                 {
                     answers.Add("greeting:despedidas");
                 }
-                else{
+                else
+                {
                     answers.Add("greeting:saludos");
                 }
                 return "ignore";
@@ -69,10 +75,40 @@ public class AnswersManager : MonoBehaviour
                 answers.Add($"obligation");
                 return "ignore";
             }
+            if (currentWord.wordTypes.Contains("reference"))
+            {
+                return "ignore";
+            }
             return "end";
         }
         else  //--------------------------------------------//
         {
+            if (lastWordTypes.Contains("reference"))
+            {
+                if (StringCompare("Demian", currentWord.word) > 60 && answers.Count == 0)
+                {
+                    answers.Add("demian");
+                    return "ignore";
+                }
+                if (currentWord.wordTypes.Contains("unknown"))
+                {
+                    return "ignore";
+                }
+                if (currentWord.wordTypes.Contains("question"))
+                {
+                    if (currentWord.wordTypes.Contains("likesQuestion"))
+                    {
+                        lastWordTypes.Clear();
+                        answers[answers.Count - 1] = answers[answers.Count - 1] + ":likesQuestion";
+                        lastWordTypes.Add("likesQuestion");
+                        return "ignore";
+                    }
+                    lastWordTypes.Clear();
+                    answers[answers.Count - 1] = answers[answers.Count - 1] + ":needsToAnswer";
+                    lastWordTypes.Add("needsAnswer");
+                    return "ignore";
+                }
+            }
             if (lastWordTypes.Contains("greeting"))
             {
                 if (currentWord.wordTypes.Contains("unknown") && currentWord.word.Length > 2)
@@ -106,6 +142,11 @@ public class AnswersManager : MonoBehaviour
                 {
                     lastWordTypes.Clear();
                     lastWordTypes.Add("referenceNeedsContinue");
+                    return "ignore";
+                }
+                if (StringCompare("Demian", currentWord.word) > 60)
+                {
+                    answers[answers.Count - 1] = answers[answers.Count - 1] + $":demian";
                     return "ignore";
                 }
                 if (currentWord.wordTypes.Contains("unknown"))
