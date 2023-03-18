@@ -65,7 +65,31 @@ public class ReturnFormedAnswer : MonoBehaviour
             {
                 responseToAdd = GetRandomOption("alpha", "personalState");
                 responseToAdd = responseToAdd.Replace("{personalState}", alpha.actualState);
-                Debug.Log(responseToAdd);
+                responses.Add(responseToAdd);
+            }
+            if (splitedStructure.Length > 1 && splitedStructure[1] == "gustos")
+            {
+                List<string> answersAdded = new List<string>();
+                responseToAdd = GetRandomOption("alpha", "likes");
+                answersAdded.Add(responseToAdd);
+                int answersToGive = Random.Range(0, 2);
+                for (int i = 0; i < answersToGive; i++)
+                {
+                    string newAnswer = GetRandomOption("alpha", "likes");
+                    answersAdded.Add(newAnswer);
+                    while (answersAdded.Contains(newAnswer))
+                    {
+                        newAnswer = GetRandomOption("alpha", "likes");
+                    }
+                    if (i + 1 == answersToGive)
+                    {
+                        responseToAdd += " y " + newAnswer;
+                    }
+                    else
+                    {
+                        responseToAdd += "," + newAnswer;
+                    }
+                }
                 responses.Add(responseToAdd);
             }
         }
