@@ -7,6 +7,7 @@ public class ReturnFormedAnswer : MonoBehaviour
 {
     public List<string> responses = new List<string>();
     public Answers intent;
+    public AIManager alpha;
 
     public void ReadStructure(string structure)
     {
@@ -55,6 +56,16 @@ public class ReturnFormedAnswer : MonoBehaviour
             if (splitedStructure.Length > 1)
             {
                 responseToAdd = GetLikesOrNot("alpha", splitedStructure[1]);
+                responses.Add(responseToAdd);
+            }
+        }
+        else if (splitedStructure[0] == "needsToAnswer")
+        {
+            if (splitedStructure.Length > 1 && splitedStructure[1] == "personalState")
+            {
+                responseToAdd = GetRandomOption("alpha", "personalState");
+                responseToAdd = responseToAdd.Replace("{personalState}", alpha.actualState);
+                Debug.Log(responseToAdd);
                 responses.Add(responseToAdd);
             }
         }

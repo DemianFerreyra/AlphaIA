@@ -7,6 +7,7 @@ public class AIManager : MonoBehaviour
 {
     public bool isReadyToAnswer = true;
     public GetCorrectAnswers getCorrectAnswers;
+    public string actualState;
 
     void Update()
     {

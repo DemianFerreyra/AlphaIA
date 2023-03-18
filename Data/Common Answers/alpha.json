@@ -76,6 +76,24 @@
                 "cualquier juego para el cual no este entrenada",
                 "las sesiones de entrenamiento... a veces se hacen extremadamente largas"
             ]
+        },
+        {
+            "specificIntent": "personalState",
+            "keys": [
+                "personalState"
+            ],
+            "options": [
+                "me encuentro {personalState} ahorita",
+                "{personalState}",
+                "estoy {personalState}",
+                "estoy {personalState} ahorita",
+                "{personalState} dentro de lo que cabe",
+                "{personalState} dentro de todo",
+                "{personalState} quizas",
+                "{personalState} digamos",
+                "{personalState} diria yo",
+                "mmm... pues {personalState}"
+            ]
         }
     ]
 }
