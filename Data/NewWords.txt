@@ -2,3 +2,6 @@
 greeting,question,action,adjective,past verb,conjunction,second person,affirmation,place,time
 
 
+word:puta, hash:442
+word:lol, hash:327
+word:lol, hash:327

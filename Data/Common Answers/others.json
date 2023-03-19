@@ -21,17 +21,19 @@
                 "puta", "zorra", "inutil", "idiota"
             ],
             "options": [
-                ". No deberias insultar a la gente asi como asi",
-                ". La unica que puede insultar soy yo",
-                ". Segun {creator} solo yo deberia poder insultar en stream",
-                ". Mods, denle timeout... espera... tengo mods?",
-                ". Mods, baneenlo... jajaja. Siempre quise decir eso",
-                ". Mods, baneenlo... jajaja. me hacia ilusion decirlo",
-                ". Cuidado con insultar a la IA tan gratuitamente",
-                ". Mods, timeout... jajaja. Siempre quise decir eso",
-                ". Mods, timeout... que lindo se siente decir algo asi",
-                ". Crees que puedes insultarme y salir ileso?",
-                ". Yo que tu cuidaria mis palabras, {usuario}"
+                "no deberias insultar a la gente asi como asi",
+                "la unica que puede insultar soy yo",
+                "segun {creator} solo yo deberia poder insultar en stream",
+                "mods, denle timeout... espera... tengo mods?",
+                "mods, baneenlo... jajaja. Siempre quise decir eso",
+                "mods, baneenlo... jajaja. me hacia ilusion decirlo",
+                "cuidado con insultar a la IA tan gratuitamente",
+                "mods, timeout... jajaja. Siempre quise decir eso",
+                "mods, timeout... que lindo se siente decir algo asi",
+                "crees que puedes insultarme y salir ileso?",
+                "yo que tu cuidaria mis palabras, {usuario}",
+                "los moderadores podrian llegar a bannearte si insultas mucho",
+                "los moderadores podrian llegar a bannearte si insultas mucho. Ten cuidado"
             ]
         }
     ]

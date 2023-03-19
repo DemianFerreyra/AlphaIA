@@ -22,6 +22,11 @@ public class AnswersManager : MonoBehaviour
                 answers.Add("demian");
                 return "ignore";
             }
+            if (currentWord.wordTypes.Contains("insult"))
+            {
+                answers.Add($"insult");
+                return "end";
+            }
             if (currentWord.wordTypes.Contains("jerga"))
             {
                 answers.Add($"jerga:{currentWord.word}");
@@ -83,6 +88,11 @@ public class AnswersManager : MonoBehaviour
         }
         else  //--------------------------------------------//
         {
+            if (currentWord.wordTypes.Contains("insult"))
+            {
+                answers.Add($"insult");
+                return "end";
+            }
             if (lastWordTypes.Contains("reference"))
             {
                 if (StringCompare("Demian", currentWord.word) > 60 && answers.Count == 0)

@@ -22,6 +22,10 @@ public class ReturnFormedAnswer : MonoBehaviour
         {
             responses.Add(GetRandomOptionBasedOnKeys("jergas", splitedStructure[1]));
         }
+        if (splitedStructure[0] == "insult")
+        {
+            responses.Add(GetRandomOption("others","insult"));
+        }
         else if (splitedStructure[0] == "greeting")
         {
             if (splitedStructure.Length > 2 && splitedStructure[2] == "user")
